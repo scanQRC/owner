@@ -1,113 +1,170 @@
-/* =====================
-   SCANME Premium UI CSS
-   ===================== */
-
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",Arial,sans-serif;
 }
 
 
 body{
 
-    font-family:Arial, Helvetica, sans-serif;
+background:#f4f8ff;
+color:#111;
+overflow-x:hidden;
 
-    background:#f5f9ff;
+}
 
-    color:#1e293b;
 
-    line-height:1.6;
+/* Background Logo Watermark */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:50%;
+left:50%;
+
+width:520px;
+height:520px;
+
+background:url("../logo.png") no-repeat center;
+
+background-size:contain;
+
+opacity:0.05;
+
+transform:translate(-50%,-50%);
+
+z-index:-1;
+
+animation:watermark 6s infinite;
 
 }
 
 
 
-a{
-    text-decoration:none;
+@keyframes watermark{
+
+0%,100%{
+
+opacity:.04;
+
+}
+
+50%{
+
+opacity:.10;
+
+}
+
 }
 
 
 
-/* HEADER */
 
+
+/* Header */
 
 .header{
 
-    height:80px;
+height:78px;
 
-    padding:0 8%;
+background:white;
 
-    background:white;
+display:flex;
 
-    display:flex;
+align-items:center;
 
-    justify-content:space-between;
+justify-content:space-between;
 
-    align-items:center;
+padding:0 7%;
 
-    position:sticky;
+position:sticky;
 
-    top:0;
+top:0;
 
-    z-index:100;
+z-index:20;
 
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-
-}
-
-
-
-
-.brand{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
+box-shadow:0 5px 25px rgba(0,0,0,.12);
 
 }
 
 
 
-.logo-icon{
+.logo{
 
-    font-size:35px;
+display:flex;
 
-}
+align-items:center;
 
-
-
-.logo-text{
-
-    font-size:30px;
-
-    font-weight:800;
-
-    color:#0369a1;
+gap:12px;
 
 }
 
 
 
+.logo img{
 
-nav{
+width:48px;
 
-    display:flex;
+height:48px;
 
-    gap:25px;
+object-fit:contain;
+
+animation:floatLogo 3s infinite ease-in-out;
 
 }
+
+
+
+@keyframes floatLogo{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-6px);
+
+}
+
+}
+
+
+
+.logo a{
+
+font-size:30px;
+
+font-weight:800;
+
+text-decoration:none;
+
+color:#0066ff;
+
+letter-spacing:1px;
+
+}
+
 
 
 
 nav a{
 
-    color:#334155;
+text-decoration:none;
 
-    font-weight:600;
+color:#222;
+
+font-weight:600;
+
+margin-left:25px;
+
+transition:.3s;
 
 }
 
@@ -115,7 +172,65 @@ nav a{
 
 nav a:hover{
 
-    color:#0369a1;
+color:#0066ff;
+
+}
+
+
+
+
+
+
+/* Moving Information Bar */
+
+.info-scroll{
+
+height:40px;
+
+background:linear-gradient(90deg,#005bea,#00c853);
+
+color:white;
+
+display:flex;
+
+align-items:center;
+
+overflow:hidden;
+
+}
+
+
+
+.info-scroll div{
+
+white-space:nowrap;
+
+font-weight:600;
+
+font-size:15px;
+
+animation:scrollText 22s linear infinite;
+
+}
+
+
+
+@keyframes scrollText{
+
+
+from{
+
+transform:translateX(100%);
+
+}
+
+
+to{
+
+transform:translateX(-100%);
+
+}
+
 
 }
 
@@ -125,24 +240,20 @@ nav a:hover{
 
 
 
-/* HERO */
+/* Hero */
 
 
 .hero{
 
-    min-height:90vh;
+min-height:85vh;
 
-    display:flex;
+display:flex;
 
-    align-items:center;
+align-items:center;
 
-    justify-content:center;
+justify-content:center;
 
-    padding:80px 8%;
-
-    background:
-
-    linear-gradient(135deg,#e0f2fe,#ffffff);
+padding:40px 20px;
 
 }
 
@@ -150,54 +261,85 @@ nav a:hover{
 
 .hero-content{
 
-    max-width:900px;
+max-width:850px;
 
-    text-align:center;
+text-align:center;
 
-}
-
-
-
-
-.tag{
-
-    display:inline-block;
-
-    background:#dbeafe;
-
-    color:#0369a1;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    margin-bottom:20px;
+animation:appear 1s ease;
 
 }
 
+
+
+@keyframes appear{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
 
 
 
 
 .hero h1{
 
-    font-size:60px;
+font-size:48px;
 
-    color:#0369a1;
+color:#005bea;
+
+margin-bottom:18px;
 
 }
 
 
 
+
+.qr-icon{
+
+display:inline-block;
+
+font-size:45px;
+
+margin-right:10px;
+
+animation:qrMove 2s infinite;
+
+}
+
+
+
+@keyframes qrMove{
+
+50%{
+
+transform:rotate(8deg) scale(1.1);
+
+}
+
+}
+
+
+
+
+
 .hero h2{
 
-    font-size:30px;
+font-size:28px;
 
-    margin:20px 0;
+margin-bottom:20px;
 
 }
 
@@ -205,11 +347,11 @@ nav a:hover{
 
 .hero p{
 
-    color:#475569;
+font-size:18px;
 
-    font-size:18px;
+color:#555;
 
-    margin-bottom:35px;
+line-height:1.6;
 
 }
 
@@ -217,15 +359,35 @@ nav a:hover{
 
 
 
+
+/* Search Box */
+
+
 .search-box{
 
-    display:flex;
+margin:35px auto;
 
-    justify-content:center;
+background:white;
 
-    gap:10px;
+padding:30px;
 
-    margin:25px 0;
+border-radius:22px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+max-width:600px;
+
+}
+
+
+
+.search-box label{
+
+display:block;
+
+font-weight:bold;
+
+margin-bottom:15px;
 
 }
 
@@ -233,27 +395,17 @@ nav a:hover{
 
 .search-box input{
 
-    width:420px;
+width:60%;
 
-    padding:16px;
+padding:15px;
 
-    border-radius:10px;
+border-radius:30px;
 
-    border:1px solid #cbd5e1;
+border:1px solid #ddd;
 
-    font-size:16px;
+outline:none;
 
-}
-
-
-
-
-
-button{
-
-    cursor:pointer;
-
-    border:none;
+font-size:15px;
 
 }
 
@@ -261,51 +413,64 @@ button{
 
 
 
-.search-box button,
+
+button,
+.secondary-btn{
+
+padding:14px 25px;
+
+border-radius:30px;
+
+border:none;
+
+cursor:pointer;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+
+
+
+
+button:hover,
+.secondary-btn:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+
+}
+
+
+
 
 .primary-btn{
 
-    background:#0369a1;
+background:#0066ff;
 
-    color:white;
+color:white;
 
-    padding:15px 25px;
-
-    border-radius:10px;
-
-    font-weight:bold;
+margin-left:10px;
 
 }
-
 
 
 
 
 .secondary-btn{
 
-    padding:14px 25px;
+background:#00c853;
 
-    border:2px solid #0369a1;
+color:white;
 
-    border-radius:10px;
+text-decoration:none;
 
-    color:#0369a1;
+display:inline-block;
 
-    font-weight:bold;
-
-}
-
-
-
-
-
-.hero-buttons{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
+margin-top:25px;
 
 }
 
@@ -315,19 +480,17 @@ button{
 
 
 
-/* FEATURES */
+
+/* Features */
 
 
 .features,
 .how,
 .faq{
 
-    padding:80px 8%;
-
-    text-align:center;
+padding:70px 8%;
 
 }
-
 
 
 
@@ -335,70 +498,50 @@ button{
 .how h2,
 .faq h2{
 
-    font-size:38px;
+text-align:center;
 
-    margin-bottom:15px;
+font-size:34px;
 
-}
+margin-bottom:40px;
 
-
-
-.section-text{
-
-    margin-bottom:40px;
+color:#005bea;
 
 }
-
 
 
 
 
 .feature-grid{
 
-    display:grid;
+display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 
-    gap:25px;
+gap:25px;
 
 }
-
-
 
 
 
 .card{
 
-    background:white;
+background:white;
 
-    padding:35px;
+padding:30px;
 
-    border-radius:20px;
+border-radius:22px;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+box-shadow:0 10px 25px rgba(0,0,0,.12);
 
-    transition:.3s;
+transition:.3s;
 
 }
-
 
 
 
 .card:hover{
 
-    transform:translateY(-8px);
-
-}
-
-
-
-
-
-.icon{
-
-    font-size:40px;
-
-    margin-bottom:15px;
+transform:translateY(-10px);
 
 }
 
@@ -406,7 +549,9 @@ button{
 
 .card h3{
 
-    color:#0369a1;
+margin-bottom:15px;
+
+color:#0066ff;
 
 }
 
@@ -417,18 +562,18 @@ button{
 
 
 
-/* STEPS */
+/* Steps */
 
 
 .steps{
 
-    display:flex;
+display:flex;
 
-    justify-content:center;
+justify-content:center;
 
-    gap:25px;
+gap:25px;
 
-    flex-wrap:wrap;
+flex-wrap:wrap;
 
 }
 
@@ -436,42 +581,39 @@ button{
 
 .step{
 
-    background:white;
+background:white;
 
-    width:280px;
+width:230px;
 
-    padding:35px;
+padding:30px;
 
-    border-radius:20px;
+border-radius:22px;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+text-align:center;
+
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+
+transition:.3s;
 
 }
 
 
 
+.step:hover{
+
+transform:scale(1.05);
+
+}
+
+
 
 .step span{
 
-    display:flex;
+font-size:45px;
 
-    width:55px;
+font-weight:bold;
 
-    height:55px;
-
-    margin:auto;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#0369a1;
-
-    color:white;
-
-    font-size:22px;
+color:#0066ff;
 
 }
 
@@ -486,17 +628,29 @@ button{
 
 details{
 
-    max-width:700px;
+background:white;
 
-    margin:15px auto;
+padding:20px;
 
-    background:white;
+margin:15px auto;
 
-    padding:20px;
+max-width:700px;
 
-    border-radius:15px;
+border-radius:15px;
 
-    text-align:left;
+box-shadow:0 8px 20px rgba(0,0,0,.1);
+
+}
+
+
+
+summary{
+
+cursor:pointer;
+
+font-weight:bold;
+
+color:#0066ff;
 
 }
 
@@ -506,30 +660,20 @@ details{
 
 
 
-/* FOOTER */
+/* Footer */
 
 
 footer{
 
-    background:#0f172a;
+background:#111;
 
-    color:white;
+color:white;
 
-    text-align:center;
+text-align:center;
 
-    padding:35px;
+padding:25px;
 
-}
-
-
-
-.footer-logo{
-
-    font-size:25px;
-
-    font-weight:bold;
-
-    margin-bottom:10px;
+margin-top:40px;
 
 }
 
@@ -537,9 +681,6 @@ footer{
 
 
 
-
-
-/* MOBILE */
 
 
 @media(max-width:768px){
@@ -547,23 +688,23 @@ footer{
 
 .header{
 
-    flex-direction:column;
+flex-direction:column;
 
-    height:auto;
+height:auto;
 
-    gap:15px;
+padding:15px;
 
-    padding:20px;
+gap:15px;
 
 }
 
 
 
-nav{
+nav a{
 
-    flex-wrap:wrap;
+margin:8px;
 
-    justify-content:center;
+display:inline-block;
 
 }
 
@@ -571,7 +712,7 @@ nav{
 
 .hero h1{
 
-    font-size:38px;
+font-size:34px;
 
 }
 
@@ -579,15 +720,7 @@ nav{
 
 .hero h2{
 
-    font-size:22px;
-
-}
-
-
-
-.search-box{
-
-    flex-direction:column;
+font-size:22px;
 
 }
 
@@ -595,26 +728,22 @@ nav{
 
 .search-box input{
 
-    width:100%;
+width:100%;
+
+margin-bottom:15px;
 
 }
 
 
 
-.hero-buttons{
+button{
 
-    flex-direction:column;
+width:100%;
 
-}
-
-
-
-.secondary-btn,
-.primary-btn{
-
-    width:100%;
+margin:5px 0;
 
 }
+
 
 
 }
