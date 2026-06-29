@@ -1,4 +1,4 @@
-/* ===== SCAN ME MODERN STYLE CSS ===== */
+/* ===== SCAN ME MODERN STYLE ===== */
 
 * {
     margin: 0;
@@ -7,173 +7,308 @@
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
+
 body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #eef5ff, #ffffff);
-    position: relative;
-    overflow-x: hidden;
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(135deg,#edf5ff,#ffffff);
+
+    overflow-x:hidden;
+
+    position:relative;
+
 }
 
-/* Full page watermark logo */
+
+
+/* BIG BACKGROUND LOGO */
+
 body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url("logo.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 420px;
-    opacity: 0.06;
-    z-index: -1;
-    pointer-events: none;
+
+    content:"";
+
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    width:1000px;
+    height:1000px;
+
+    transform:translate(-50%,-50%);
+
+    background-image:url("./logo.png");
+
+    background-repeat:no-repeat;
+
+    background-position:center;
+
+    background-size:contain;
+
+
+    opacity:0.13;
+
+    z-index:0;
+
+    pointer-events:none;
+
 }
+
+
+
+/* Keep content above logo */
+
+.container,
+.header,
+.card,
+footer {
+
+    position:relative;
+
+    z-index:2;
+
+}
+
 
 
 /* Main container */
 
 .container {
-    width: 90%;
-    max-width: 1100px;
-    margin: auto;
-    padding: 30px;
+
+    width:90%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:30px;
+
 }
+
 
 
 /* Header */
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(15px);
-    padding: 18px 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-}
 
-
-/* Side logo area */
-
-.logo-box {
     display:flex;
+
     align-items:center;
-    gap:12px;
-}
+
+    justify-content:space-between;
 
 
-.logo-box img {
-    width:65px;
-    height:65px;
-    object-fit:contain;
-    border-radius:15px;
-    filter: drop-shadow(0 8px 12px rgba(0,0,0,.18));
-}
+    padding:20px 25px;
 
-
-.logo-box h1 {
-    font-size:28px;
-    color:#0b57d0;
-}
-
-
-/* Card */
-
-.card {
-
-    margin-top:30px;
-    padding:35px;
 
     background:rgba(255,255,255,0.75);
-    backdrop-filter:blur(18px);
+
+    backdrop-filter:blur(15px);
+
 
     border-radius:25px;
+
 
     box-shadow:
     0 15px 40px rgba(0,0,0,.12);
 
-    text-align:center;
 }
 
 
-/* QR / Scan Area */
 
-.scan-area {
+/* Logo box */
 
-    width:220px;
-    height:220px;
-    margin:25px auto;
+.logo-icon {
+
+
+    width:80px;
+
+    height:80px;
+
 
     display:flex;
-    justify-content:center;
+
     align-items:center;
 
-    border-radius:25px;
+    justify-content:center;
+
 
     background:white;
 
+
+    border-radius:22px;
+
+
+    padding:10px;
+
+
     box-shadow:
-    0 12px 35px rgba(0,0,0,.15);
+    0 10px 30px rgba(0,0,0,.18);
 
 }
+
+
+
+.logo-icon img {
+
+
+    width:100%;
+
+    height:100%;
+
+
+    object-fit:contain;
+
+}
+
+
+
+/* Text */
+
+.logo-text {
+
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#075bd8;
+
+}
+
+
+
+/* Main card */
+
+
+.card {
+
+
+    margin-top:35px;
+
+
+    padding:40px;
+
+
+    background:
+    rgba(255,255,255,.75);
+
+
+    backdrop-filter:blur(18px);
+
+
+    border-radius:30px;
+
+
+    box-shadow:
+    0 18px 50px rgba(0,0,0,.14);
+
+
+    text-align:center;
+
+}
+
+
+
+/* Scan Area */
+
+
+.scan-area {
+
+
+    width:240px;
+
+    height:240px;
+
+
+    margin:25px auto;
+
+
+    background:white;
+
+
+    border-radius:25px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.18);
+
+}
+
 
 
 /* Buttons */
 
+
 button,
 .btn {
 
+
     border:none;
-    outline:none;
 
-    padding:14px 30px;
 
-    border-radius:50px;
+    padding:15px 35px;
 
-    font-size:16px;
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
 
     margin:8px;
 
+
+    border-radius:50px;
+
+
+    cursor:pointer;
+
+
+    font-size:16px;
+
+    font-weight:600;
+
+
     color:white;
+
 
     background:
     linear-gradient(135deg,#0066ff,#00c6ff);
 
+
     box-shadow:
-    0 8px 20px rgba(0,102,255,.35);
+    0 10px 25px rgba(0,102,255,.35);
+
+
+    transition:.3s;
 
 }
+
 
 
 button:hover,
 .btn:hover {
 
-    transform:translateY(-4px);
+
+    transform:translateY(-5px);
+
 
     box-shadow:
-    0 15px 30px rgba(0,102,255,.45);
+    0 18px 35px rgba(0,102,255,.45);
 
 }
 
 
-/* Secondary button */
 
-.btn-secondary {
-
-    background:
-    linear-gradient(135deg,#6a11cb,#2575fc);
-
-}
+/* Different buttons */
 
 
-/* Success button */
+.btn-green {
 
-.btn-success {
 
     background:
     linear-gradient(135deg,#00b09b,#96c93d);
@@ -181,36 +316,59 @@ button:hover,
 }
 
 
-/* Input */
+
+.btn-purple {
+
+
+    background:
+    linear-gradient(135deg,#8e2de2,#4a00e0);
+
+}
+
+
+
+/* Inputs */
+
 
 input,
 textarea {
 
+
     width:100%;
+
 
     padding:15px;
 
-    margin:10px 0;
+
+    margin:12px 0;
+
 
     border-radius:15px;
 
+
     border:1px solid #ddd;
 
-    background:rgba(255,255,255,.8);
+
+    background:white;
+
 
     font-size:16px;
 
 }
 
 
+
 input:focus,
 textarea:focus {
 
-    border-color:#0066ff;
 
     outline:none;
 
-    box-shadow:0 0 15px rgba(0,102,255,.2);
+    border-color:#0066ff;
+
+
+    box-shadow:
+    0 0 15px rgba(0,102,255,.25);
 
 }
 
@@ -218,11 +376,15 @@ textarea:focus {
 
 /* Footer */
 
+
 footer {
+
 
     text-align:center;
 
-    margin-top:30px;
+
+    margin-top:35px;
+
 
     color:#555;
 
@@ -232,7 +394,9 @@ footer {
 
 /* Mobile */
 
+
 @media(max-width:700px){
+
 
 .header {
 
@@ -243,24 +407,33 @@ footer {
 }
 
 
-.logo-box h1 {
 
-    font-size:22px;
+.logo-text {
 
-}
-
-
-.card {
-
-    padding:20px;
+    font-size:23px;
 
 }
+
 
 
 body::before {
 
-    background-size:280px;
+
+    width:650px;
+
+    height:650px;
+
+    opacity:.12;
 
 }
+
+
+
+.card {
+
+    padding:22px;
+
+}
+
 
 }
