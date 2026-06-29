@@ -1,5 +1,4 @@
-/* ===== SCANME FINAL STYLE ===== */
-
+/* ===== SCANME STYLE CSS ===== */
 
 *{
     margin:0;
@@ -11,9 +10,9 @@
 
 body{
 
-    background:#f4f8ff;
+    background:#f7fbff;
 
-    color:#1d2a3a;
+    color:#1e293b;
 
     overflow-x:hidden;
 
@@ -22,8 +21,7 @@ body{
 }
 
 
-
-/* BIG BACKGROUND WATERMARK LOGO */
+/* ===== BIG BACKGROUND LOGO ===== */
 
 body::before{
 
@@ -34,8 +32,10 @@ body::before{
     top:50%;
     left:50%;
 
-    width:900px;
-    height:900px;
+
+    width:850px;
+    height:850px;
+
 
     transform:translate(-50%,-50%);
 
@@ -49,30 +49,16 @@ body::before{
     background-size:contain;
 
 
-    opacity:.055;
+    opacity:0.055;
 
-    z-index:0;
+
+    z-index:-1;
 
     pointer-events:none;
 
 }
 
 
-
-/* keep all content above watermark */
-
-.header,
-.hero,
-.features,
-.how,
-.faq,
-footer{
-
-    position:relative;
-
-    z-index:2;
-
-}
 
 
 
@@ -97,15 +83,13 @@ footer{
     padding:18px 25px;
 
 
-    background:rgba(255,255,255,.85);
-
-    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,.90);
 
 
-    border-radius:25px;
+    border-radius:20px;
 
 
-    box-shadow:0 15px 40px rgba(0,0,0,.10);
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
 
 }
 
@@ -129,15 +113,21 @@ footer{
 
     height:70px;
 
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
 }
 
 
 
 .logo-icon img{
 
-    width:100%;
+    width:70px;
 
-    height:100%;
+    height:70px;
 
     object-fit:contain;
 
@@ -147,7 +137,7 @@ footer{
 
 .logo-text{
 
-    font-size:32px;
+    font-size:30px;
 
     font-weight:800;
 
@@ -157,12 +147,13 @@ footer{
 
 
 
+/* MENU */
 
 nav a{
 
     text-decoration:none;
 
-    margin-left:20px;
+    margin-left:18px;
 
     color:#333;
 
@@ -174,7 +165,6 @@ nav a{
 
 /* HERO */
 
-
 .hero{
 
     width:90%;
@@ -183,8 +173,7 @@ nav a{
 
     margin:auto;
 
-    padding:80px 20px;
-
+    padding:70px 0;
 
 }
 
@@ -207,7 +196,7 @@ nav a{
     border-radius:50px;
 
 
-    background:#e6f0ff;
+    background:#e7f0ff;
 
     color:#0066ff;
 
@@ -223,13 +212,13 @@ h1{
 
     margin:20px 0;
 
-    color:#0b2d5c;
+    color:#0b2b5c;
 
 }
 
 
 
-h2{
+.hero h2{
 
     margin-bottom:15px;
 
@@ -251,14 +240,13 @@ h2{
 
 /* SEARCH */
 
-
 .search-box{
 
     display:flex;
 
     gap:10px;
 
-    margin:30px 0;
+    margin:25px 0;
 
 }
 
@@ -268,7 +256,7 @@ h2{
 
     flex:1;
 
-    padding:15px;
+    padding:15px 20px;
 
     border-radius:50px;
 
@@ -285,7 +273,9 @@ button,
 
     border:none;
 
-    padding:14px 28px;
+
+    padding:14px 30px;
+
 
     border-radius:50px;
 
@@ -293,18 +283,19 @@ button,
     cursor:pointer;
 
 
-    font-weight:700;
-
     text-decoration:none;
 
 
     color:white;
 
 
+    font-weight:700;
+
+
     background:linear-gradient(135deg,#0066ff,#00c6ff);
 
 
-    box-shadow:0 10px 25px #0066ff44;
+    box-shadow:0 8px 20px #0066ff44;
 
 }
 
@@ -318,8 +309,6 @@ button,
 
 
 
-/* BUTTON AREA */
-
 .hero-buttons{
 
     display:flex;
@@ -332,8 +321,9 @@ button,
 
 
 
-/* FEATURES */
 
+
+/* FEATURES */
 
 .features,
 .how,
@@ -344,8 +334,8 @@ button,
 
     max-width:1200px;
 
-    margin:70px auto;
 
+    margin:70px auto;
 
 }
 
@@ -378,16 +368,16 @@ button,
 details{
 
 
-    background:rgba(255,255,255,.85);
+    background:rgba(255,255,255,.90);
 
 
     padding:25px;
 
 
-    border-radius:22px;
+    border-radius:20px;
 
 
-    box-shadow:0 12px 35px rgba(0,0,0,.10);
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
 
 }
 
@@ -403,7 +393,9 @@ details{
 
 
 
-/* STEPS */
+
+
+/* HOW */
 
 .steps{
 
@@ -412,7 +404,6 @@ details{
     gap:20px;
 
 }
-
 
 
 .step span{
@@ -425,6 +416,8 @@ details{
 
 
 
+
+
 /* FAQ */
 
 details{
@@ -432,7 +425,6 @@ details{
     margin:15px 0;
 
 }
-
 
 
 summary{
@@ -445,8 +437,9 @@ summary{
 
 
 
-/* FOOTER */
 
+
+/* FOOTER */
 
 footer{
 
@@ -454,7 +447,7 @@ footer{
 
     padding:35px;
 
-    background:#0b1d35;
+    background:#071b33;
 
     color:white;
 
@@ -472,8 +465,9 @@ footer{
 
 
 
-/* MOBILE */
 
+
+/* MOBILE */
 
 @media(max-width:800px){
 
@@ -482,7 +476,7 @@ footer{
 
     flex-direction:column;
 
-    gap:20px;
+    gap:15px;
 
 }
 
@@ -528,9 +522,9 @@ h1{
 
 body::before{
 
-    width:600px;
+    width:550px;
 
-    height:600px;
+    height:550px;
 
 }
 
