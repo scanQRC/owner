@@ -1,17 +1,12 @@
 /* =========================
-   SCANME Responsive Website CSS
+   SCANME Complete Style CSS
    ========================= */
 
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-html {
-    scroll-behavior: smooth;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 
@@ -19,14 +14,19 @@ body {
 
     font-family: Arial, Helvetica, sans-serif;
 
-    background: #f6f9fc;
+    background:#f4f8fc;
 
-    color: #1f2937;
+    color:#1f2937;
 
-    line-height: 1.6;
+    line-height:1.6;
 
 }
 
+
+
+a {
+    text-decoration:none;
+}
 
 
 
@@ -36,7 +36,7 @@ body {
 
 .header {
 
-    width:100%;
+    background:white;
 
     display:flex;
 
@@ -46,23 +46,19 @@ body {
 
     padding:20px 8%;
 
-    background:#ffffff;
-
     position:sticky;
 
     top:0;
 
-    z-index:999;
+    z-index:10;
 
-    box-shadow:0 3px 15px rgba(0,0,0,0.08);
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
 
 }
 
 
 
 .logo a {
-
-    text-decoration:none;
 
     font-size:30px;
 
@@ -86,24 +82,11 @@ nav {
 
 nav a {
 
-    text-decoration:none;
-
     color:#333;
 
     font-weight:600;
 
 }
-
-
-
-nav a:hover {
-
-    color:#0369a1;
-
-}
-
-
-
 
 
 
@@ -113,7 +96,7 @@ nav a:hover {
 
 .hero {
 
-    min-height:90vh;
+    min-height:85vh;
 
     display:flex;
 
@@ -121,7 +104,7 @@ nav a:hover {
 
     align-items:center;
 
-    padding:70px 8%;
+    padding:60px 8%;
 
     background:
 
@@ -143,11 +126,9 @@ nav a:hover {
 
 .hero h1 {
 
-    font-size:56px;
+    font-size:55px;
 
     color:#0369a1;
-
-    margin-bottom:15px;
 
 }
 
@@ -157,7 +138,7 @@ nav a:hover {
 
     font-size:30px;
 
-    margin-bottom:20px;
+    margin:20px 0;
 
 }
 
@@ -169,7 +150,7 @@ nav a:hover {
 
     color:#555;
 
-    margin-bottom:35px;
+    margin-bottom:30px;
 
 }
 
@@ -177,7 +158,16 @@ nav a:hover {
 
 
 
+
 /* SEARCH */
+
+
+.search-box {
+
+    margin-top:30px;
+
+}
+
 
 
 .search-box label {
@@ -202,20 +192,23 @@ nav a:hover {
 
 
 
-.search-box input {
+input {
 
-    width:60%;
+    width:100%;
+
+    max-width:450px;
 
     padding:15px;
 
-    font-size:16px;
-
     border:1px solid #ccc;
 
-    border-radius:8px 0 0 8px;
+    border-radius:8px;
+
+    font-size:16px;
+
+    margin:8px;
 
 }
-
 
 
 
@@ -225,20 +218,11 @@ button {
 
     border:none;
 
-    font-size:16px;
-
-    font-weight:bold;
-
-    border-radius:8px;
-
 }
 
 
 
-
-
 .search-box button,
-
 .primary-btn {
 
     background:#0369a1;
@@ -247,8 +231,11 @@ button {
 
     padding:15px 25px;
 
-}
+    border-radius:8px;
 
+    font-weight:bold;
+
+}
 
 
 
@@ -257,20 +244,17 @@ button {
 
     display:inline-block;
 
-    padding:13px 25px;
-
-    color:#0369a1;
+    padding:14px 25px;
 
     border:2px solid #0369a1;
 
     border-radius:8px;
 
-    text-decoration:none;
+    color:#0369a1;
 
     font-weight:bold;
 
 }
-
 
 
 
@@ -294,6 +278,7 @@ button {
 
 
 
+
 /* FEATURES */
 
 
@@ -302,7 +287,7 @@ button {
 .faq,
 .register {
 
-    padding:80px 8%;
+    padding:70px 8%;
 
     text-align:center;
 
@@ -315,21 +300,11 @@ button {
 .faq h2,
 .register h2 {
 
-    font-size:36px;
+    font-size:35px;
 
-    margin-bottom:25px;
-
-}
-
-
-
-.section-text {
-
-    margin-bottom:40px;
+    margin-bottom:30px;
 
 }
-
-
 
 
 
@@ -356,9 +331,7 @@ button {
 
     border-radius:15px;
 
-    box-shadow:
-
-    0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
 
@@ -378,7 +351,8 @@ button {
 
 
 
-/* HOW IT WORKS */
+
+/* STEPS */
 
 
 .steps {
@@ -387,7 +361,7 @@ button {
 
     justify-content:center;
 
-    gap:30px;
+    gap:25px;
 
     flex-wrap:wrap;
 
@@ -397,9 +371,9 @@ button {
 
 .step {
 
-    width:260px;
-
     background:white;
+
+    width:260px;
 
     padding:30px;
 
@@ -419,11 +393,11 @@ button {
 
     height:50px;
 
-    margin:auto;
-
     align-items:center;
 
     justify-content:center;
+
+    margin:auto;
 
     border-radius:50%;
 
@@ -441,26 +415,41 @@ button {
 
 
 
-/* REGISTER */
+/* REGISTER FORM */
 
 
-.register {
+.register form {
 
-    background:#0369a1;
+    max-width:500px;
 
-    color:white;
+    margin:30px auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
 
 }
 
 
 
-.register .primary-btn {
+.register input {
 
-    background:white;
+    max-width:100%;
+
+}
+
+
+
+
+#result {
+
+    margin-top:25px;
 
     color:#0369a1;
-
-    margin-top:20px;
 
 }
 
@@ -475,11 +464,11 @@ button {
 
 details {
 
-    background:white;
-
     max-width:700px;
 
     margin:15px auto;
+
+    background:white;
 
     padding:20px;
 
@@ -498,8 +487,6 @@ summary {
     font-weight:bold;
 
 }
-
-
 
 
 
@@ -526,14 +513,11 @@ footer {
 
 
 
-/* =========================
-   RESPONSIVE DESIGN
-   ========================= */
+
+/* MOBILE */
 
 
-
-@media(max-width:768px) {
-
+@media(max-width:768px){
 
 
 .header {
@@ -552,23 +536,13 @@ nav {
 
     justify-content:center;
 
-    gap:15px;
-
-}
-
-
-
-.hero {
-
-    padding:50px 5%;
-
 }
 
 
 
 .hero h1 {
 
-    font-size:38px;
+    font-size:36px;
 
 }
 
@@ -582,14 +556,6 @@ nav {
 
 
 
-.hero p {
-
-    font-size:16px;
-
-}
-
-
-
 .search-box div {
 
     flex-direction:column;
@@ -598,21 +564,9 @@ nav {
 
 
 
-.search-box input {
-
-    width:100%;
-
-    border-radius:8px;
-
-    margin-bottom:12px;
-
-}
-
-
-
 .search-box button {
 
-    width:100%;
+    margin-top:10px;
 
 }
 
@@ -626,8 +580,8 @@ nav {
 
 
 
-.primary-btn,
-.secondary-btn {
+.secondary-btn,
+.primary-btn {
 
     width:100%;
 
@@ -635,63 +589,22 @@ nav {
 
 
 
-.features,
-.how,
-.faq,
-.register {
+.steps {
 
-    padding:50px 5%;
+    flex-direction:column;
 
-}
-
-
-
-.features h2,
-.how h2,
-.faq h2,
-.register h2 {
-
-    font-size:28px;
+    align-items:center;
 
 }
 
 
 
-.feature-grid {
-
-    grid-template-columns:1fr;
-
-}
-
-
-
-.card,
 .step {
 
     width:100%;
 
 }
 
-
-}
-
-
-
-@media(max-width:420px){
-
-
-.logo a {
-
-    font-size:25px;
-
-}
-
-
-.hero h1 {
-
-    font-size:32px;
-
-}
 
 
 }
