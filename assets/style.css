@@ -15,7 +15,8 @@ overflow-x:hidden;
 }
 
 
-/* Background Logo Watermark */
+
+/* BACKGROUND WATERMARK LOGO */
 
 body::before{
 
@@ -26,22 +27,27 @@ position:fixed;
 top:50%;
 left:50%;
 
-width:520px;
-height:520px;
+width:650px;
+height:650px;
 
 background:url("../logo.png") no-repeat center;
 
 background-size:contain;
 
-opacity:0.05;
+
+/* पहले से 25% ज्यादा स्पष्ट */
+
+opacity:0.13;
+
 
 transform:translate(-50%,-50%);
 
 z-index:-1;
 
-animation:watermark 6s infinite;
+animation:watermark 6s ease-in-out infinite;
 
 }
+
 
 
 
@@ -49,13 +55,18 @@ animation:watermark 6s infinite;
 
 0%,100%{
 
-opacity:.04;
+opacity:.10;
+
+transform:translate(-50%,-50%) scale(1);
 
 }
+
 
 50%{
 
-opacity:.10;
+opacity:.17;
+
+transform:translate(-50%,-50%) scale(1.05);
 
 }
 
@@ -65,13 +76,18 @@ opacity:.10;
 
 
 
-/* Header */
+
+
+
+/* HEADER */
 
 .header{
 
-height:78px;
+height:82px;
 
-background:white;
+background:rgba(255,255,255,.90);
+
+backdrop-filter:blur(12px);
 
 display:flex;
 
@@ -93,6 +109,7 @@ box-shadow:0 5px 25px rgba(0,0,0,.12);
 
 
 
+
 .logo{
 
 display:flex;
@@ -107,49 +124,46 @@ gap:12px;
 
 .logo img{
 
-width:48px;
+width:52px;
 
-height:48px;
+height:52px;
 
 object-fit:contain;
 
-animation:floatLogo 3s infinite ease-in-out;
+animation:floatLogo 3s infinite;
 
 }
+
 
 
 
 @keyframes floatLogo{
 
-0%,100%{
-
-transform:translateY(0);
-
-}
-
 50%{
 
-transform:translateY(-6px);
+transform:translateY(-7px);
 
 }
 
 }
+
 
 
 
 .logo a{
 
-font-size:30px;
+font-size:32px;
 
-font-weight:800;
+font-weight:900;
+
+color:#005bea;
 
 text-decoration:none;
-
-color:#0066ff;
 
 letter-spacing:1px;
 
 }
+
 
 
 
@@ -172,7 +186,7 @@ transition:.3s;
 
 nav a:hover{
 
-color:#0066ff;
+color:#005bea;
 
 }
 
@@ -181,7 +195,10 @@ color:#0066ff;
 
 
 
-/* Moving Information Bar */
+
+
+/* TOP SCROLL */
+
 
 .info-scroll{
 
@@ -189,15 +206,16 @@ height:40px;
 
 background:linear-gradient(90deg,#005bea,#00c853);
 
-color:white;
-
 display:flex;
 
 align-items:center;
 
 overflow:hidden;
 
+color:white;
+
 }
+
 
 
 
@@ -207,8 +225,6 @@ white-space:nowrap;
 
 font-weight:600;
 
-font-size:15px;
-
 animation:scrollText 22s linear infinite;
 
 }
@@ -216,7 +232,6 @@ animation:scrollText 22s linear infinite;
 
 
 @keyframes scrollText{
-
 
 from{
 
@@ -231,7 +246,6 @@ transform:translateX(-100%);
 
 }
 
-
 }
 
 
@@ -240,7 +254,9 @@ transform:translateX(-100%);
 
 
 
-/* Hero */
+
+
+/* HERO */
 
 
 .hero{
@@ -253,7 +269,7 @@ align-items:center;
 
 justify-content:center;
 
-padding:40px 20px;
+padding:50px 20px;
 
 }
 
@@ -261,7 +277,7 @@ padding:40px 20px;
 
 .hero-content{
 
-max-width:850px;
+max-width:900px;
 
 text-align:center;
 
@@ -285,8 +301,6 @@ to{
 
 opacity:1;
 
-transform:translateY(0);
-
 }
 
 }
@@ -296,11 +310,13 @@ transform:translateY(0);
 
 .hero h1{
 
-font-size:48px;
+font-size:50px;
 
 color:#005bea;
 
-margin-bottom:18px;
+margin-bottom:20px;
+
+font-weight:900;
 
 }
 
@@ -311,9 +327,7 @@ margin-bottom:18px;
 
 display:inline-block;
 
-font-size:45px;
-
-margin-right:10px;
+font-size:50px;
 
 animation:qrMove 2s infinite;
 
@@ -325,12 +339,11 @@ animation:qrMove 2s infinite;
 
 50%{
 
-transform:rotate(8deg) scale(1.1);
+transform:scale(1.15) rotate(8deg);
 
 }
 
 }
-
 
 
 
@@ -351,7 +364,7 @@ font-size:18px;
 
 color:#555;
 
-line-height:1.6;
+line-height:1.7;
 
 }
 
@@ -360,24 +373,28 @@ line-height:1.6;
 
 
 
-/* Search Box */
+
+/* SEARCH */
 
 
 .search-box{
 
 margin:35px auto;
 
-background:white;
-
 padding:30px;
 
-border-radius:22px;
+max-width:620px;
 
-box-shadow:0 15px 35px rgba(0,0,0,.12);
+background:rgba(255,255,255,.85);
 
-max-width:600px;
+backdrop-filter:blur(10px);
+
+border-radius:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.15);
 
 }
+
 
 
 
@@ -385,11 +402,12 @@ max-width:600px;
 
 display:block;
 
-font-weight:bold;
+font-weight:700;
 
 margin-bottom:15px;
 
 }
+
 
 
 
@@ -405,9 +423,8 @@ border:1px solid #ddd;
 
 outline:none;
 
-font-size:15px;
-
 }
+
 
 
 
@@ -417,15 +434,16 @@ font-size:15px;
 button,
 .secondary-btn{
 
-padding:14px 25px;
+
+padding:14px 28px;
 
 border-radius:30px;
 
 border:none;
 
-cursor:pointer;
-
 font-weight:bold;
+
+cursor:pointer;
 
 transition:.3s;
 
@@ -440,16 +458,17 @@ button:hover,
 
 transform:translateY(-5px);
 
-box-shadow:0 10px 20px rgba(0,0,0,.2);
+box-shadow:0 10px 20px #0003;
 
 }
 
 
 
 
+
 .primary-btn{
 
-background:#0066ff;
+background:#005bea;
 
 color:white;
 
@@ -481,7 +500,8 @@ margin-top:25px;
 
 
 
-/* Features */
+
+/* SECTIONS */
 
 
 .features,
@@ -500,13 +520,17 @@ padding:70px 8%;
 
 text-align:center;
 
-font-size:34px;
-
-margin-bottom:40px;
+font-size:35px;
 
 color:#005bea;
 
+margin-bottom:40px;
+
 }
+
+
+
+
 
 
 
@@ -523,9 +547,12 @@ gap:25px;
 
 
 
-.card{
 
-background:white;
+
+.card,
+.step{
+
+background:rgba(255,255,255,.92);
 
 padding:30px;
 
@@ -539,7 +566,9 @@ transition:.3s;
 
 
 
-.card:hover{
+
+.card:hover,
+.step:hover{
 
 transform:translateY(-10px);
 
@@ -547,11 +576,14 @@ transform:translateY(-10px);
 
 
 
+
+
+
 .card h3{
 
-margin-bottom:15px;
+color:#005bea;
 
-color:#0066ff;
+margin-bottom:15px;
 
 }
 
@@ -561,8 +593,6 @@ color:#0066ff;
 
 
 
-
-/* Steps */
 
 
 .steps{
@@ -579,31 +609,16 @@ flex-wrap:wrap;
 
 
 
-.step{
 
-background:white;
+.step{
 
 width:230px;
 
-padding:30px;
-
-border-radius:22px;
-
 text-align:center;
 
-box-shadow:0 10px 25px rgba(0,0,0,.12);
-
-transition:.3s;
-
 }
 
 
-
-.step:hover{
-
-transform:scale(1.05);
-
-}
 
 
 
@@ -613,7 +628,7 @@ font-size:45px;
 
 font-weight:bold;
 
-color:#0066ff;
+color:#005bea;
 
 }
 
@@ -623,7 +638,6 @@ color:#0066ff;
 
 
 
-/* FAQ */
 
 
 details{
@@ -638,9 +652,10 @@ max-width:700px;
 
 border-radius:15px;
 
-box-shadow:0 8px 20px rgba(0,0,0,.1);
+box-shadow:0 8px 20px #0002;
 
 }
+
 
 
 
@@ -650,7 +665,7 @@ cursor:pointer;
 
 font-weight:bold;
 
-color:#0066ff;
+color:#005bea;
 
 }
 
@@ -658,9 +673,6 @@ color:#0066ff;
 
 
 
-
-
-/* Footer */
 
 
 footer{
@@ -669,13 +681,13 @@ background:#111;
 
 color:white;
 
-text-align:center;
-
 padding:25px;
 
-margin-top:40px;
+text-align:center;
 
 }
+
+
 
 
 
@@ -692,9 +704,9 @@ flex-direction:column;
 
 height:auto;
 
-padding:15px;
-
 gap:15px;
+
+padding:15px;
 
 }
 
@@ -712,7 +724,7 @@ display:inline-block;
 
 .hero h1{
 
-font-size:34px;
+font-size:35px;
 
 }
 
