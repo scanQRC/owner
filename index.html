@@ -3,204 +3,584 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>SCANME | Vehicle QR Identification System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-        content="SCANME Vehicle QR System helps anyone identify a vehicle owner and contact them instantly using a QR Code.">
 
-    <meta name="keywords"
-        content="Vehicle QR, QR Sticker, Car QR, Bike QR, Owner Contact, Scanme">
+<title>
+SCANME | Smart Vehicle QR Identification System India
+</title>
 
-    <meta name="author" content="SCANME">
 
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta name="description" content="
+SCANME is India's smart vehicle QR identification platform. Scan a vehicle QR code to securely contact owners during emergencies, parking issues, accidents, and lost vehicle situations.
+">
 
-    <link rel="icon" href="images/logo.png">
+
+<meta name="keywords" content="
+vehicle QR code,
+vehicle identification system,
+smart vehicle ID,
+car QR code India,
+bike QR code,
+emergency vehicle contact,
+SCANME
+">
+
+
+<meta name="author" content="SCANME">
+
+
+<meta name="robots" content="index, follow">
+
+
+
+<!-- Open Graph -->
+
+<meta property="og:title" content="SCANME - Smart Vehicle QR Identification System">
+
+<meta property="og:description" content="Scan vehicle QR codes and connect securely with registered vehicle owners.">
+
+<meta property="og:type" content="website">
+
+<meta property="og:url" content="https://scanme.in">
+
+
+
+<!-- Theme -->
+
+<meta name="theme-color" content="#0b1220">
+
+
+
+<link rel="stylesheet" href="style.css">
+
 
 </head>
 
+
 <body>
+
+
+
+<!-- HEADER -->
 
 <header class="header">
 
-<div class="container">
 
-<a href="index.html" class="logo">
+<div class="logo">
 
-<img src="images/logo.png" alt="SCANME Logo">
-
+<a href="/" aria-label="SCANME Home">
+SCANME
 </a>
-
-<nav>
-
-<ul>
-
-<li><a href="#">Home</a></li>
-
-<li><a href="#">How It Works</a></li>
-
-<li><a href="#">Register</a></li>
-
-<li><a href="#">Contact</a></li>
-
-</ul>
-
-</nav>
 
 </div>
 
+
+
+<nav aria-label="Main Navigation">
+
+<a href="#features">
+Features
+</a>
+
+
+<a href="#how-it-works">
+How It Works
+</a>
+
+
+<a href="#faq">
+FAQ
+</a>
+
+
+<a href="#register">
+Register Vehicle
+</a>
+
+
+</nav>
+
+
 </header>
+
+
+
+
+
+
+<main>
+
+
+
+
+
+<!-- HERO SECTION -->
 
 <section class="hero">
 
-<div class="container hero-grid">
 
-<div class="hero-left">
+<div class="hero-content">
+
 
 <h1>
-
-Protect Your Vehicle
-
+SCAN. IDENTIFY. CONNECT.
 </h1>
 
+
 <h2>
-
-Connect Owners Instantly
-
+India's Smart Vehicle QR Identification System
 </h2>
+
+
 
 <p>
 
-SCANME is a smart QR based vehicle identification system.
-
-Anyone can scan the QR sticker and instantly contact the vehicle owner during an emergency.
+SCANME helps people identify vehicles quickly and securely.
+Scan the QR code placed on a vehicle to contact the registered owner
+during emergencies, parking issues, accidents or lost and found situations.
 
 </p>
 
+
+
+
 <div class="search-box">
 
-<input
-type="text"
-id="vehicleNumber"
-placeholder="Enter Vehicle Number">
 
-<button id="searchBtn">
+<label for="vehicleId">
+Search Vehicle
+</label>
+
+
+<div>
+
+
+<input
+
+type="search"
+
+id="vehicleId"
+
+placeholder="Enter Vehicle ID"
+
+aria-label="Enter Vehicle ID"
+
+>
+
+
+<button
+
+type="button"
+
+onclick="searchVehicle()"
+
+>
 
 Search Vehicle
 
 </button>
 
+
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="hero-buttons">
 
-<a href="#" class="btn-primary">
+
+<button class="primary-btn">
 
 Scan QR
 
+</button>
+
+
+
+<a 
+href="#register"
+class="secondary-btn"
+>
+
+Register Your Vehicle
+
 </a>
 
-<a href="#" class="btn-secondary">
-
-Register Vehicle
-
-</a>
 
 </div>
 
-</div>
 
-<div class="hero-right">
-
-<img src="images/hero.jpg" alt="Vehicle">
 
 </div>
 
-</div>
 
 </section>
 
-<section class="features">
 
-<div class="container">
+
+
+
+
+
+<!-- FEATURES -->
+
+
+<section id="features" class="features">
+
 
 <h2>
-
-Why Choose SCANME?
-
+Powerful Features
 </h2>
+
+
+
+<p class="section-text">
+
+A secure and reliable vehicle identification system designed for India.
+
+</p>
+
+
+
 
 <div class="feature-grid">
 
-<div class="feature-card">
+
+
+<article class="card">
 
 <h3>
-
-🚗 Vehicle Identification
-
+QR Based Vehicle Identification
 </h3>
 
 <p>
-
-Identify any registered vehicle within seconds.
-
+Every registered vehicle gets a unique QR identity for instant verification.
 </p>
 
-</div>
+</article>
 
-<div class="feature-card">
+
+
+
+
+<article class="card">
 
 <h3>
-
-📞 Contact Owner
-
+Emergency Contact System
 </h3>
 
 <p>
-
-Call or WhatsApp owner instantly without revealing personal details.
-
+Reach vehicle owners quickly during urgent situations.
 </p>
 
-</div>
+</article>
 
-<div class="feature-card">
+
+
+
+
+<article class="card">
 
 <h3>
-
-🛡 Privacy Protection
-
+Owner Privacy Protection
 </h3>
 
 <p>
-
-Owner's mobile number remains protected.
-
+Personal information remains protected with secure communication.
 </p>
 
-</div>
+</article>
 
-<div class="feature-card">
+
+
+
+
+<article class="card">
 
 <h3>
-
-⚡ Fast Access
-
+Instant Vehicle Lookup
 </h3>
 
 <p>
-
-Get emergency information immediately.
-
+Find registered vehicle details through a simple QR scan.
 </p>
 
-</div>
+</article>
+
+
+
+
+
+<article class="card">
+
+<h3>
+Secure Communication
+</h3>
+
+<p>
+Connect without exposing sensitive personal details.
+</p>
+
+</article>
+
+
+
+
+
+<article class="card">
+
+<h3>
+Fast & Reliable
+</h3>
+
+<p>
+Built for quick response and everyday vehicle safety.
+</p>
+
+</article>
+
+
+
 
 </div>
 
-</div>
 
 </section>
+
+
+
+
+
+
+
+<!-- HOW IT WORKS -->
+
+
+<section id="how-it-works" class="how">
+
+
+<h2>
+How SCANME Works
+</h2>
+
+
+
+<div class="steps">
+
+
+
+<div class="step">
+
+<span>
+1
+</span>
+
+<h3>
+Scan QR Code
+</h3>
+
+<p>
+Scan the QR sticker placed on the vehicle.
+</p>
+
+</div>
+
+
+
+
+
+<div class="step">
+
+<span>
+2
+</span>
+
+<h3>
+Verify Vehicle
+</h3>
+
+<p>
+Vehicle information is securely checked.
+</p>
+
+</div>
+
+
+
+
+
+<div class="step">
+
+<span>
+3
+</span>
+
+<h3>
+Connect Safely
+</h3>
+
+<p>
+Contact the registered owner instantly.
+</p>
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- REGISTER -->
+
+
+<section id="register" class="register">
+
+
+<h2>
+Register Your Vehicle With SCANME
+</h2>
+
+
+
+<p>
+
+Create your digital vehicle identity and get your unique QR code.
+
+</p>
+
+
+
+<button class="primary-btn">
+
+Register Now
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- FAQ -->
+
+
+<section id="faq" class="faq">
+
+
+<h2>
+Frequently Asked Questions
+</h2>
+
+
+
+<details>
+
+<summary>
+What is SCANME?
+</summary>
+
+<p>
+SCANME is a smart vehicle QR identification platform that helps people connect with vehicle owners securely.
+</p>
+
+</details>
+
+
+
+
+
+<details>
+
+<summary>
+Does SCANME show my personal details?
+</summary>
+
+<p>
+No. SCANME is designed to protect owner privacy and provide secure communication.
+</p>
+
+</details>
+
+
+
+
+
+<details>
+
+<summary>
+Can I use SCANME for cars and bikes?
+</summary>
+
+<p>
+Yes. SCANME can support multiple vehicle types including cars, motorcycles and commercial vehicles.
+</p>
+
+</details>
+
+
+
+
+</section>
+
+
+
+
+
+
+</main>
+
+
+
+
+
+
+
+<!-- FOOTER -->
+
+
+<footer>
+
+
+<p>
+
+© 2026 SCANME. Smart Vehicle QR Identification System.
+
+</p>
+
+
+</footer>
+
+
+
+
+
+
+<script src="app.js"></script>
+
+
+</body>
+
+
+</html>
