@@ -1,0 +1,301 @@
+/* =====================================
+   SCANQRC Generator
+   Version 1.0
+======================================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+background:#eef4ff;
+color:#222;
+overflow-x:hidden;
+}
+
+/* Background Watermark */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+width:550px;
+
+height:550px;
+
+background:url("../logo.png") no-repeat center;
+
+background-size:contain;
+
+opacity:.05;
+
+transform:translate(-50%,-50%);
+
+z-index:-1;
+
+}
+
+/* Header */
+
+.topbar{
+
+background:#fff;
+
+padding:20px 40px;
+
+box-shadow:0 5px 25px rgba(0,0,0,.10);
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+}
+
+.brand{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.logo{
+
+width:60px;
+
+height:60px;
+
+object-fit:contain;
+
+}
+
+.brand h1{
+
+font-size:28px;
+
+color:#0066ff;
+
+}
+
+.brand p{
+
+color:#666;
+
+font-size:14px;
+
+}
+
+/* Layout */
+
+.container{
+
+max-width:1400px;
+
+margin:40px auto;
+
+padding:0 20px;
+
+display:grid;
+
+grid-template-columns:420px 1fr;
+
+gap:30px;
+
+}
+
+/* Panels */
+
+.left-panel,
+.right-panel{
+
+background:#fff;
+
+border-radius:25px;
+
+padding:30px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+.left-panel h2,
+.right-panel h2{
+
+margin-bottom:20px;
+
+color:#0066ff;
+
+}
+
+/* Inputs */
+
+label{
+
+display:block;
+
+margin:15px 0 10px;
+
+font-weight:600;
+
+}
+
+select,
+textarea,
+input{
+
+width:100%;
+
+padding:14px;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+font-size:15px;
+
+outline:none;
+
+transition:.3s;
+
+}
+
+select:focus,
+textarea:focus,
+input:focus{
+
+border-color:#0066ff;
+
+box-shadow:0 0 8px rgba(0,102,255,.2);
+
+}
+
+/* Buttons */
+
+.buttons{
+
+display:flex;
+
+gap:15px;
+
+margin-top:25px;
+
+}
+
+button{
+
+flex:1;
+
+padding:15px;
+
+border:none;
+
+border-radius:50px;
+
+font-size:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+#generateBtn{
+
+background:#0066ff;
+
+color:white;
+
+}
+
+#downloadBtn{
+
+background:#00b14f;
+
+color:white;
+
+}
+
+button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 10px 20px rgba(0,0,0,.15);
+
+}
+
+/* Preview */
+
+#preview{
+
+height:500px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+border:2px dashed #cfd8dc;
+
+border-radius:20px;
+
+background:#fafafa;
+
+font-size:18px;
+
+color:#888;
+
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.container{
+
+grid-template-columns:1fr;
+
+}
+
+.topbar{
+
+padding:15px;
+
+}
+
+.brand h1{
+
+font-size:22px;
+
+}
+
+.logo{
+
+width:50px;
+
+height:50px;
+
+}
+
+.buttons{
+
+flex-direction:column;
+
+}
+
+}
