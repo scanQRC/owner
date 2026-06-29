@@ -1,42 +1,71 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const generateBtn = document.getElementById("generateBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
     const qrData = document.getElementById("qrData");
     const preview = document.getElementById("preview");
 
-    generateBtn.addEventListener("click", () => {
+    let qrCode;
 
-        const value = qrData.value.trim();
+    generateBtn.addEventListener("click", generateQR);
 
-        if (value === "") {
-            preview.innerHTML = "<p>Please enter some data.</p>";
+    function generateQR() {
+
+        const data = qrData.value.trim();
+
+        if (!data) {
+            alert("Please enter data.");
             return;
         }
 
-        preview.innerHTML = `
-            <div style="text-align:center;">
-                <h3>QR Preview</h3>
-                <p><strong>Data:</strong></p>
-                <p>${value}</p>
+        preview.innerHTML = "";
 
-                <div style="
-                    margin:20px auto;
-                    width:220px;
-                    height:220px;
-                    border:3px dashed #0066ff;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    border-radius:15px;
-                    background:#fff;">
-                    QR Coming Soon
-                </div>
+        qrCode = new QRCodeStyling({
+            width: 260,
+            height: 260,
+            data: data,
+            image: "../logo.png",
 
-                <p style="color:#777;">
-                    Next step: Real QR Generator
-                </p>
-            </div>
-        `;
+            dotsOptions: {
+                color: "#005bea",
+                type: "rounded"
+            },
+
+            backgroundOptions: {
+                color: "#ffffff"
+            },
+
+            cornersSquareOptions: {
+                color: "#005bea",
+                type: "extra-rounded"
+            },
+
+            cornersDotOptions: {
+                color: "#005bea"
+            },
+
+            imageOptions: {
+                crossOrigin: "anonymous",
+                margin: 6,
+                imageSize: 0.28
+            }
+        });
+
+        qrCode.append(preview);
+
+    }
+
+    downloadBtn.addEventListener("click", () => {
+
+        if (!qrCode) {
+            alert("Generate QR first.");
+            return;
+        }
+
+        qrCode.download({
+            name: "SCANQRC",
+            extension: "png"
+        });
 
     });
 
