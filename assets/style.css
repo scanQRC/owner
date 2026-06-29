@@ -1,620 +1,266 @@
-/* =====================
-   SCANME Premium UI CSS
-   ===================== */
+/* ===== SCAN ME MODERN STYLE CSS ===== */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef5ff, #ffffff);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Full page watermark logo */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 420px;
+    opacity: 0.06;
+    z-index: -1;
+    pointer-events: none;
 }
 
 
-body{
+/* Main container */
 
-    font-family:Arial, Helvetica, sans-serif;
-
-    background:#f5f9ff;
-
-    color:#1e293b;
-
-    line-height:1.6;
-
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px;
 }
 
 
+/* Header */
 
-a{
-    text-decoration:none;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(15px);
+    padding: 18px 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
 }
 
 
+/* Side logo area */
 
-/* HEADER */
+.logo-box {
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
 
-.header{
+.logo-box img {
+    width:65px;
+    height:65px;
+    object-fit:contain;
+    border-radius:15px;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,.18));
+}
 
-    height:80px;
 
-    padding:0 8%;
+.logo-box h1 {
+    font-size:28px;
+    color:#0b57d0;
+}
+
+
+/* Card */
+
+.card {
+
+    margin-top:30px;
+    padding:35px;
+
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(18px);
+
+    border-radius:25px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.12);
+
+    text-align:center;
+}
+
+
+/* QR / Scan Area */
+
+.scan-area {
+
+    width:220px;
+    height:220px;
+    margin:25px auto;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:25px;
 
     background:white;
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:
+    0 12px 35px rgba(0,0,0,.15);
 
 }
 
 
+/* Buttons */
 
+button,
+.btn {
 
-.brand{
+    border:none;
+    outline:none;
 
-    display:flex;
+    padding:14px 30px;
 
-    align-items:center;
+    border-radius:50px;
 
-    gap:12px;
-
-}
-
-
-
-.logo-icon{
-
-    font-size:35px;
-
-}
-
-
-
-.logo-text{
-
-    font-size:30px;
-
-    font-weight:800;
-
-    color:#0369a1;
-
-}
-
-
-
-
-nav{
-
-    display:flex;
-
-    gap:25px;
-
-}
-
-
-
-nav a{
-
-    color:#334155;
-
+    font-size:16px;
     font-weight:600;
 
-}
+    cursor:pointer;
 
+    transition:.3s;
 
+    margin:8px;
 
-nav a:hover{
-
-    color:#0369a1;
-
-}
-
-
-
-
-
-
-
-/* HERO */
-
-
-.hero{
-
-    min-height:90vh;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:80px 8%;
+    color:white;
 
     background:
+    linear-gradient(135deg,#0066ff,#00c6ff);
 
-    linear-gradient(135deg,#e0f2fe,#ffffff);
-
-}
-
-
-
-.hero-content{
-
-    max-width:900px;
-
-    text-align:center;
+    box-shadow:
+    0 8px 20px rgba(0,102,255,.35);
 
 }
 
 
+button:hover,
+.btn:hover {
 
+    transform:translateY(-4px);
 
-.tag{
-
-    display:inline-block;
-
-    background:#dbeafe;
-
-    color:#0369a1;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    margin-bottom:20px;
+    box-shadow:
+    0 15px 30px rgba(0,102,255,.45);
 
 }
 
 
+/* Secondary button */
 
+.btn-secondary {
 
-
-.hero h1{
-
-    font-size:60px;
-
-    color:#0369a1;
+    background:
+    linear-gradient(135deg,#6a11cb,#2575fc);
 
 }
 
 
+/* Success button */
 
-.hero h2{
+.btn-success {
 
-    font-size:30px;
-
-    margin:20px 0;
-
-}
-
-
-
-.hero p{
-
-    color:#475569;
-
-    font-size:18px;
-
-    margin-bottom:35px;
+    background:
+    linear-gradient(135deg,#00b09b,#96c93d);
 
 }
 
 
+/* Input */
 
+input,
+textarea {
 
+    width:100%;
 
-.search-box{
+    padding:15px;
 
-    display:flex;
+    margin:10px 0;
 
-    justify-content:center;
+    border-radius:15px;
 
-    gap:10px;
+    border:1px solid #ddd;
 
-    margin:25px 0;
-
-}
-
-
-
-.search-box input{
-
-    width:420px;
-
-    padding:16px;
-
-    border-radius:10px;
-
-    border:1px solid #cbd5e1;
+    background:rgba(255,255,255,.8);
 
     font-size:16px;
 
 }
 
 
+input:focus,
+textarea:focus {
 
+    border-color:#0066ff;
 
+    outline:none;
 
-button{
-
-    cursor:pointer;
-
-    border:none;
-
-}
-
-
-
-
-
-.search-box button,
-
-.primary-btn{
-
-    background:#0369a1;
-
-    color:white;
-
-    padding:15px 25px;
-
-    border-radius:10px;
-
-    font-weight:bold;
+    box-shadow:0 0 15px rgba(0,102,255,.2);
 
 }
 
 
 
+/* Footer */
 
+footer {
 
-.secondary-btn{
+    text-align:center;
 
-    padding:14px 25px;
+    margin-top:30px;
 
-    border:2px solid #0369a1;
-
-    border-radius:10px;
-
-    color:#0369a1;
-
-    font-weight:bold;
+    color:#555;
 
 }
 
 
 
+/* Mobile */
 
+@media(max-width:700px){
 
-.hero-buttons{
+.header {
 
-    display:flex;
-
-    justify-content:center;
+    flex-direction:column;
 
     gap:20px;
 
 }
 
 
-
-
-
-
-
-/* FEATURES */
-
-
-.features,
-.how,
-.faq{
-
-    padding:80px 8%;
-
-    text-align:center;
-
-}
-
-
-
-
-.features h2,
-.how h2,
-.faq h2{
-
-    font-size:38px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.section-text{
-
-    margin-bottom:40px;
-
-}
-
-
-
-
-
-.feature-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-    gap:25px;
-
-}
-
-
-
-
-
-.card{
-
-    background:white;
-
-    padding:35px;
-
-    border-radius:20px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-    transition:.3s;
-
-}
-
-
-
-
-.card:hover{
-
-    transform:translateY(-8px);
-
-}
-
-
-
-
-
-.icon{
-
-    font-size:40px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.card h3{
-
-    color:#0369a1;
-
-}
-
-
-
-
-
-
-
-
-/* STEPS */
-
-
-.steps{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:25px;
-
-    flex-wrap:wrap;
-
-}
-
-
-
-.step{
-
-    background:white;
-
-    width:280px;
-
-    padding:35px;
-
-    border-radius:20px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-}
-
-
-
-
-.step span{
-
-    display:flex;
-
-    width:55px;
-
-    height:55px;
-
-    margin:auto;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#0369a1;
-
-    color:white;
+.logo-box h1 {
 
     font-size:22px;
 
 }
 
 
-
-
-
-
-
-/* FAQ */
-
-
-details{
-
-    max-width:700px;
-
-    margin:15px auto;
-
-    background:white;
-
-    padding:20px;
-
-    border-radius:15px;
-
-    text-align:left;
-
-}
-
-
-
-
-
-
-
-/* FOOTER */
-
-
-footer{
-
-    background:#0f172a;
-
-    color:white;
-
-    text-align:center;
-
-    padding:35px;
-
-}
-
-
-
-.footer-logo{
-
-    font-size:25px;
-
-    font-weight:bold;
-
-    margin-bottom:10px;
-
-}
-
-
-
-
-
-
-
-/* MOBILE */
-
-
-@media(max-width:768px){
-
-
-.header{
-
-    flex-direction:column;
-
-    height:auto;
-
-    gap:15px;
+.card {
 
     padding:20px;
 
 }
 
 
+body::before {
 
-nav{
-
-    flex-wrap:wrap;
-
-    justify-content:center;
+    background-size:280px;
 
 }
-
-
-
-.hero h1{
-
-    font-size:38px;
-
-}
-
-
-
-.hero h2{
-
-    font-size:22px;
-
-}
-
-
-
-.search-box{
-
-    flex-direction:column;
-
-}
-
-
-
-.search-box input{
-
-    width:100%;
-
-}
-
-
-
-.hero-buttons{
-
-    flex-direction:column;
-
-}
-
-
-
-.secondary-btn,
-.primary-btn{
-
-    width:100%;
-
-}
-
 
 }
