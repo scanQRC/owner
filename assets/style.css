@@ -1,4 +1,5 @@
-/* ===== SCAN ME CLEAN MODERN STYLE ===== */
+/* ===== SCAN ME FINAL MODERN STYLE ===== */
+
 
 *{
     margin:0;
@@ -8,20 +9,22 @@
 }
 
 
+
 body{
 
     min-height:100vh;
 
-    background:#f5f9ff;
-
-    position:relative;
+    background:linear-gradient(135deg,#eef5ff,#ffffff);
 
     overflow-x:hidden;
+
+    position:relative;
 
 }
 
 
-/* ONLY LOGO WATERMARK */
+
+/* BIG BACKGROUND LOGO */
 
 body::before{
 
@@ -35,6 +38,7 @@ body::before{
     width:850px;
     height:850px;
 
+
     transform:translate(-50%,-50%);
 
 
@@ -47,10 +51,7 @@ body::before{
     background-size:contain;
 
 
-    opacity:.045;
-
-
-    filter:grayscale(20%);
+    opacity:0.06;
 
 
     z-index:0;
@@ -60,6 +61,8 @@ body::before{
 }
 
 
+
+/* PAGE CONTENT ABOVE LOGO */
 
 .container,
 .header,
@@ -74,11 +77,12 @@ footer{
 
 
 
-/* Container */
+/* Main Container */
 
 .container{
 
     width:90%;
+
     max-width:1100px;
 
     margin:auto;
@@ -89,7 +93,7 @@ footer{
 
 
 
-/* Header */
+/* HEADER */
 
 .header{
 
@@ -100,24 +104,25 @@ footer{
     justify-content:space-between;
 
 
-    padding:18px 25px;
+    padding:20px 25px;
 
 
-    background:rgba(255,255,255,.88);
+    background:rgba(255,255,255,.80);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(15px);
 
 
     border-radius:22px;
 
 
-    box-shadow:0 10px 30px rgba(0,0,0,.10);
+    box-shadow:
+    0 12px 35px rgba(0,0,0,.12);
 
 }
 
 
 
-/* Side logo */
+/* LOGO ICON */
 
 .logo-icon{
 
@@ -128,13 +133,12 @@ footer{
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
+
+    justify-content:center;
 
 
     background:transparent;
-
 
 }
 
@@ -146,14 +150,13 @@ footer{
 
     height:70px;
 
-
     object-fit:contain;
 
 }
 
 
 
-/* Heading */
+/* TITLE */
 
 .logo-text{
 
@@ -167,22 +170,27 @@ footer{
 
 
 
-/* Card */
+/* CARD */
 
 .card{
 
     margin-top:30px;
 
+
     padding:35px;
 
 
-    background:rgba(255,255,255,.92);
+    background:rgba(255,255,255,.85);
+
+
+    backdrop-filter:blur(15px);
 
 
     border-radius:25px;
 
 
-    box-shadow:0 15px 40px rgba(0,0,0,.12);
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.12);
 
 
     text-align:center;
@@ -191,7 +199,7 @@ footer{
 
 
 
-/* Scan box */
+/* SCAN BOX */
 
 .scan-area{
 
@@ -206,7 +214,7 @@ footer{
     background:white;
 
 
-    border-radius:22px;
+    border-radius:25px;
 
 
     display:flex;
@@ -216,13 +224,14 @@ footer{
     align-items:center;
 
 
-    box-shadow:0 12px 30px rgba(0,0,0,.15);
+    box-shadow:
+    0 12px 35px rgba(0,0,0,.15);
 
 }
 
 
 
-/* Buttons */
+/* BUTTONS */
 
 button,
 .btn{
@@ -240,22 +249,27 @@ button,
     border-radius:50px;
 
 
-    color:white;
-
-
     cursor:pointer;
-
-
-    font-weight:600;
 
 
     font-size:16px;
 
 
-    background:linear-gradient(135deg,#0066ff,#00c6ff);
+    font-weight:600;
 
 
-    box-shadow:0 8px 20px rgba(0,102,255,.3);
+    color:white;
+
+
+
+    background:
+    linear-gradient(135deg,#0066ff,#00c6ff);
+
+
+
+    box-shadow:
+    0 10px 25px rgba(0,102,255,.35);
+
 
 
     transition:.3s;
@@ -267,44 +281,136 @@ button,
 button:hover,
 .btn:hover{
 
-    transform:translateY(-3px);
+
+    transform:translateY(-4px);
+
+
+    box-shadow:
+    0 18px 35px rgba(0,102,255,.45);
 
 }
 
 
 
-/* Footer */
+
+/* OTHER BUTTONS */
+
+.btn-green{
+
+    background:
+    linear-gradient(135deg,#00b09b,#96c93d);
+
+}
+
+
+.btn-purple{
+
+    background:
+    linear-gradient(135deg,#8e2de2,#4a00e0);
+
+}
+
+
+
+/* INPUTS */
+
+input,
+textarea{
+
+
+    width:100%;
+
+
+    padding:15px;
+
+
+    margin:10px 0;
+
+
+    border-radius:15px;
+
+
+    border:1px solid #ddd;
+
+
+    background:white;
+
+
+    font-size:16px;
+
+}
+
+
+
+input:focus,
+textarea:focus{
+
+
+    outline:none;
+
+
+    border-color:#0066ff;
+
+
+}
+
+
+
+/* FOOTER */
 
 footer{
 
+
     text-align:center;
 
+
     margin-top:30px;
+
+
+    color:#555;
 
 }
 
 
 
-/* Mobile */
+
+/* MOBILE */
 
 @media(max-width:700px){
 
-    .header{
 
-        flex-direction:column;
+.header{
 
-        gap:15px;
+    flex-direction:column;
 
-    }
+    gap:15px;
+
+}
 
 
-    body::before{
 
-        width:550px;
+.logo-text{
 
-        height:550px;
+    font-size:23px;
 
-    }
+}
+
+
+
+body::before{
+
+    width:550px;
+
+    height:550px;
+
+}
+
+
+.card{
+
+    padding:20px;
+
+}
 
 
 }
