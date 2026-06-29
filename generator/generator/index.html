@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SCANQRC Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <img src="../logo.png" alt="SCANQRC Logo" class="logo">
+    <div>
+      <h1>SCANQRC Generator</h1>
+      <p>Create beautiful QR Codes instantly</p>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+<section class="left-panel">
+<h2>Select QR Type</h2>
+
+<select id="qrType">
+<option>Website URL</option>
+<option>Text</option>
+<option>Phone</option>
+<option>Email</option>
+<option>SMS</option>
+<option>WhatsApp</option>
+<option>WiFi</option>
+<option>Location</option>
+<option>UPI Payment</option>
+<option>vCard Contact</option>
+</select>
+
+<label>Enter Data</label>
+<textarea id="qrData" rows="8"
+placeholder="Enter URL or other information here..."></textarea>
+
+<div class="buttons">
+<button id="generateBtn">Generate QR</button>
+<button id="downloadBtn">Download PNG</button>
+</div>
+
+</section>
+
+<section class="right-panel">
+
+<h2>Live Preview</h2>
+
+<div id="preview">
+<p>Your QR Code will appear here.</p>
+</div>
+
+</section>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
