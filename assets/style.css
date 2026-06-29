@@ -1,22 +1,22 @@
-/* =========================
-   SCANME Complete Style CSS
-   ========================= */
+/* =====================
+   SCANME Premium UI CSS
+   ===================== */
 
 
-* {
+*{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
 
-body {
+body{
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 
-    background:#f4f8fc;
+    background:#f5f9ff;
 
-    color:#1f2937;
+    color:#1e293b;
 
     line-height:1.6;
 
@@ -24,17 +24,20 @@ body {
 
 
 
-a {
+a{
     text-decoration:none;
 }
-
 
 
 
 /* HEADER */
 
 
-.header {
+.header{
+
+    height:80px;
+
+    padding:0 8%;
 
     background:white;
 
@@ -44,21 +47,40 @@ a {
 
     align-items:center;
 
-    padding:20px 8%;
-
     position:sticky;
 
     top:0;
 
-    z-index:10;
+    z-index:100;
 
-    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
 
 
 
-.logo a {
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+
+.logo-icon{
+
+    font-size:35px;
+
+}
+
+
+
+.logo-text{
 
     font-size:30px;
 
@@ -70,7 +92,8 @@ a {
 
 
 
-nav {
+
+nav{
 
     display:flex;
 
@@ -80,9 +103,9 @@ nav {
 
 
 
-nav a {
+nav a{
 
-    color:#333;
+    color:#334155;
 
     font-weight:600;
 
@@ -90,21 +113,32 @@ nav a {
 
 
 
+nav a:hover{
+
+    color:#0369a1;
+
+}
+
+
+
+
+
+
 
 /* HERO */
 
 
-.hero {
+.hero{
 
-    min-height:85vh;
+    min-height:90vh;
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
 
-    padding:60px 8%;
+    justify-content:center;
+
+    padding:80px 8%;
 
     background:
 
@@ -114,7 +148,7 @@ nav a {
 
 
 
-.hero-content {
+.hero-content{
 
     max-width:900px;
 
@@ -124,9 +158,34 @@ nav a {
 
 
 
-.hero h1 {
 
-    font-size:55px;
+.tag{
+
+    display:inline-block;
+
+    background:#dbeafe;
+
+    color:#0369a1;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+.hero h1{
+
+    font-size:60px;
 
     color:#0369a1;
 
@@ -134,7 +193,7 @@ nav a {
 
 
 
-.hero h2 {
+.hero h2{
 
     font-size:30px;
 
@@ -144,13 +203,13 @@ nav a {
 
 
 
-.hero p {
+.hero p{
+
+    color:#475569;
 
     font-size:18px;
 
-    color:#555;
-
-    margin-bottom:30px;
+    margin-bottom:35px;
 
 }
 
@@ -158,61 +217,39 @@ nav a {
 
 
 
-
-/* SEARCH */
-
-
-.search-box {
-
-    margin-top:30px;
-
-}
-
-
-
-.search-box label {
-
-    display:block;
-
-    font-weight:bold;
-
-    margin-bottom:10px;
-
-}
-
-
-
-.search-box div {
+.search-box{
 
     display:flex;
 
     justify-content:center;
 
+    gap:10px;
+
+    margin:25px 0;
+
 }
 
 
 
-input {
+.search-box input{
 
-    width:100%;
+    width:420px;
 
-    max-width:450px;
+    padding:16px;
 
-    padding:15px;
+    border-radius:10px;
 
-    border:1px solid #ccc;
-
-    border-radius:8px;
+    border:1px solid #cbd5e1;
 
     font-size:16px;
 
-    margin:8px;
-
 }
 
 
 
-button {
+
+
+button{
 
     cursor:pointer;
 
@@ -222,8 +259,11 @@ button {
 
 
 
+
+
 .search-box button,
-.primary-btn {
+
+.primary-btn{
 
     background:#0369a1;
 
@@ -231,7 +271,7 @@ button {
 
     padding:15px 25px;
 
-    border-radius:8px;
+    border-radius:10px;
 
     font-weight:bold;
 
@@ -240,15 +280,14 @@ button {
 
 
 
-.secondary-btn {
 
-    display:inline-block;
+.secondary-btn{
 
     padding:14px 25px;
 
     border:2px solid #0369a1;
 
-    border-radius:8px;
+    border-radius:10px;
 
     color:#0369a1;
 
@@ -260,9 +299,7 @@ button {
 
 
 
-.hero-buttons {
-
-    margin-top:30px;
+.hero-buttons{
 
     display:flex;
 
@@ -278,16 +315,14 @@ button {
 
 
 
-
 /* FEATURES */
 
 
 .features,
 .how,
-.faq,
-.register {
+.faq{
 
-    padding:70px 8%;
+    padding:80px 8%;
 
     text-align:center;
 
@@ -295,27 +330,34 @@ button {
 
 
 
+
 .features h2,
 .how h2,
-.faq h2,
-.register h2 {
+.faq h2{
 
-    font-size:35px;
+    font-size:38px;
 
-    margin-bottom:30px;
+    margin-bottom:15px;
+
+}
+
+
+
+.section-text{
+
+    margin-bottom:40px;
 
 }
 
 
 
 
-.feature-grid {
+
+.feature-grid{
 
     display:grid;
 
-    grid-template-columns:
-
-    repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 
     gap:25px;
 
@@ -323,25 +365,48 @@ button {
 
 
 
-.card {
+
+
+.card{
 
     background:white;
 
-    padding:30px;
+    padding:35px;
 
-    border-radius:15px;
+    border-radius:20px;
 
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    transition:.3s;
 
 }
 
 
 
-.card h3 {
 
-    color:#0369a1;
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+
+
+
+.icon{
+
+    font-size:40px;
 
     margin-bottom:15px;
+
+}
+
+
+
+.card h3{
+
+    color:#0369a1;
 
 }
 
@@ -355,7 +420,7 @@ button {
 /* STEPS */
 
 
-.steps {
+.steps{
 
     display:flex;
 
@@ -369,35 +434,36 @@ button {
 
 
 
-.step {
+.step{
 
     background:white;
 
-    width:260px;
+    width:280px;
 
-    padding:30px;
+    padding:35px;
 
-    border-radius:15px;
+    border-radius:20px;
 
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 
 }
 
 
 
-.step span {
+
+.step span{
 
     display:flex;
 
-    width:50px;
+    width:55px;
 
-    height:50px;
+    height:55px;
+
+    margin:auto;
 
     align-items:center;
 
     justify-content:center;
-
-    margin:auto;
 
     border-radius:50%;
 
@@ -415,54 +481,10 @@ button {
 
 
 
-/* REGISTER FORM */
-
-
-.register form {
-
-    max-width:500px;
-
-    margin:30px auto;
-
-    background:white;
-
-    padding:30px;
-
-    border-radius:15px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
-
-}
-
-
-
-.register input {
-
-    max-width:100%;
-
-}
-
-
-
-
-#result {
-
-    margin-top:25px;
-
-    color:#0369a1;
-
-}
-
-
-
-
-
-
-
 /* FAQ */
 
 
-details {
+details{
 
     max-width:700px;
 
@@ -472,21 +494,13 @@ details {
 
     padding:20px;
 
-    border-radius:10px;
+    border-radius:15px;
 
     text-align:left;
 
 }
 
 
-
-summary {
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-}
 
 
 
@@ -495,18 +509,29 @@ summary {
 /* FOOTER */
 
 
-footer {
+footer{
 
-    background:#111827;
+    background:#0f172a;
 
     color:white;
 
     text-align:center;
 
-    padding:25px;
+    padding:35px;
 
 }
 
+
+
+.footer-logo{
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+}
 
 
 
@@ -520,17 +545,21 @@ footer {
 @media(max-width:768px){
 
 
-.header {
+.header{
 
     flex-direction:column;
 
+    height:auto;
+
     gap:15px;
+
+    padding:20px;
 
 }
 
 
 
-nav {
+nav{
 
     flex-wrap:wrap;
 
@@ -540,15 +569,15 @@ nav {
 
 
 
-.hero h1 {
+.hero h1{
 
-    font-size:36px;
+    font-size:38px;
 
 }
 
 
 
-.hero h2 {
+.hero h2{
 
     font-size:22px;
 
@@ -556,7 +585,7 @@ nav {
 
 
 
-.search-box div {
+.search-box{
 
     flex-direction:column;
 
@@ -564,15 +593,15 @@ nav {
 
 
 
-.search-box button {
+.search-box input{
 
-    margin-top:10px;
+    width:100%;
 
 }
 
 
 
-.hero-buttons {
+.hero-buttons{
 
     flex-direction:column;
 
@@ -581,30 +610,11 @@ nav {
 
 
 .secondary-btn,
-.primary-btn {
+.primary-btn{
 
     width:100%;
 
 }
-
-
-
-.steps {
-
-    flex-direction:column;
-
-    align-items:center;
-
-}
-
-
-
-.step {
-
-    width:100%;
-
-}
-
 
 
 }
