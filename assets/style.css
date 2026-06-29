@@ -1,1 +1,697 @@
-body{font-family:Arial;margin:40px;}h1{color:#0b66c3;}
+/* =========================
+   SCANME Responsive Website CSS
+   ========================= */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f6f9fc;
+
+    color: #1f2937;
+
+    line-height: 1.6;
+
+}
+
+
+
+
+
+/* HEADER */
+
+
+.header {
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 8%;
+
+    background:#ffffff;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    box-shadow:0 3px 15px rgba(0,0,0,0.08);
+
+}
+
+
+
+.logo a {
+
+    text-decoration:none;
+
+    font-size:30px;
+
+    font-weight:800;
+
+    color:#0369a1;
+
+}
+
+
+
+nav {
+
+    display:flex;
+
+    gap:25px;
+
+}
+
+
+
+nav a {
+
+    text-decoration:none;
+
+    color:#333;
+
+    font-weight:600;
+
+}
+
+
+
+nav a:hover {
+
+    color:#0369a1;
+
+}
+
+
+
+
+
+
+
+/* HERO */
+
+
+.hero {
+
+    min-height:90vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:70px 8%;
+
+    background:
+
+    linear-gradient(135deg,#e0f2fe,#ffffff);
+
+}
+
+
+
+.hero-content {
+
+    max-width:900px;
+
+    text-align:center;
+
+}
+
+
+
+.hero h1 {
+
+    font-size:56px;
+
+    color:#0369a1;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.hero h2 {
+
+    font-size:30px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.hero p {
+
+    font-size:18px;
+
+    color:#555;
+
+    margin-bottom:35px;
+
+}
+
+
+
+
+
+/* SEARCH */
+
+
+.search-box label {
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.search-box div {
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+
+
+.search-box input {
+
+    width:60%;
+
+    padding:15px;
+
+    font-size:16px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px 0 0 8px;
+
+}
+
+
+
+
+button {
+
+    cursor:pointer;
+
+    border:none;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    border-radius:8px;
+
+}
+
+
+
+
+
+.search-box button,
+
+.primary-btn {
+
+    background:#0369a1;
+
+    color:white;
+
+    padding:15px 25px;
+
+}
+
+
+
+
+
+.secondary-btn {
+
+    display:inline-block;
+
+    padding:13px 25px;
+
+    color:#0369a1;
+
+    border:2px solid #0369a1;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+
+
+
+
+
+.hero-buttons {
+
+    margin-top:30px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+
+
+
+
+
+
+/* FEATURES */
+
+
+.features,
+.how,
+.faq,
+.register {
+
+    padding:80px 8%;
+
+    text-align:center;
+
+}
+
+
+
+.features h2,
+.how h2,
+.faq h2,
+.register h2 {
+
+    font-size:36px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.section-text {
+
+    margin-bottom:40px;
+
+}
+
+
+
+
+
+
+.feature-grid {
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+
+
+.card {
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:
+
+    0 5px 20px rgba(0,0,0,.08);
+
+}
+
+
+
+.card h3 {
+
+    color:#0369a1;
+
+    margin-bottom:15px;
+
+}
+
+
+
+
+
+
+
+/* HOW IT WORKS */
+
+
+.steps {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+.step {
+
+    width:260px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+}
+
+
+
+.step span {
+
+    display:flex;
+
+    width:50px;
+
+    height:50px;
+
+    margin:auto;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#0369a1;
+
+    color:white;
+
+    font-size:22px;
+
+}
+
+
+
+
+
+
+
+/* REGISTER */
+
+
+.register {
+
+    background:#0369a1;
+
+    color:white;
+
+}
+
+
+
+.register .primary-btn {
+
+    background:white;
+
+    color:#0369a1;
+
+    margin-top:20px;
+
+}
+
+
+
+
+
+
+
+/* FAQ */
+
+
+details {
+
+    background:white;
+
+    max-width:700px;
+
+    margin:15px auto;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    text-align:left;
+
+}
+
+
+
+summary {
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+
+
+
+
+
+/* FOOTER */
+
+
+footer {
+
+    background:#111827;
+
+    color:white;
+
+    text-align:center;
+
+    padding:25px;
+
+}
+
+
+
+
+
+
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+
+
+
+@media(max-width:768px) {
+
+
+
+.header {
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+
+
+nav {
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:15px;
+
+}
+
+
+
+.hero {
+
+    padding:50px 5%;
+
+}
+
+
+
+.hero h1 {
+
+    font-size:38px;
+
+}
+
+
+
+.hero h2 {
+
+    font-size:22px;
+
+}
+
+
+
+.hero p {
+
+    font-size:16px;
+
+}
+
+
+
+.search-box div {
+
+    flex-direction:column;
+
+}
+
+
+
+.search-box input {
+
+    width:100%;
+
+    border-radius:8px;
+
+    margin-bottom:12px;
+
+}
+
+
+
+.search-box button {
+
+    width:100%;
+
+}
+
+
+
+.hero-buttons {
+
+    flex-direction:column;
+
+}
+
+
+
+.primary-btn,
+.secondary-btn {
+
+    width:100%;
+
+}
+
+
+
+.features,
+.how,
+.faq,
+.register {
+
+    padding:50px 5%;
+
+}
+
+
+
+.features h2,
+.how h2,
+.faq h2,
+.register h2 {
+
+    font-size:28px;
+
+}
+
+
+
+.feature-grid {
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.card,
+.step {
+
+    width:100%;
+
+}
+
+
+}
+
+
+
+@media(max-width:420px){
+
+
+.logo a {
+
+    font-size:25px;
+
+}
+
+
+.hero h1 {
+
+    font-size:32px;
+
+}
+
+
+}
