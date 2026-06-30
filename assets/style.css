@@ -1329,38 +1329,17 @@ button,
 
 }
 
-/* FINAL QR FIX */
-
 .qr-pattern,
 .qr-pattern::before{
     display:none;
 }
 
+.qr-icon::before{
 
-.qr-icon{
-
-    width:70px;
-    height:70px;
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    margin-right:15px;
-
-    background:#fff;
-
-    border-radius:18px;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    content:"▦";
 
     font-size:45px;
 
     color:#111;
-
-    vertical-align:middle;
-
-    animation:qrFloat 2s ease-in-out infinite;
 
 }
