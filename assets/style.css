@@ -520,30 +520,55 @@ nav a:hover::after{
 }
 
 
-.qr-icon::before{
+.qr-icon{
 
-    content:"";
+    width:90px;
+    height:90px;
 
-    width:45px;
-    height:45px;
+    display:inline-flex;
 
-    background:
+    align-items:center;
+    justify-content:center;
 
-    linear-gradient(90deg,#111 20%,transparent 20%),
-    linear-gradient(#111 20%,transparent 20%);
+    margin-right:15px;
 
-    background-size:15px 15px;
+    background:#fff;
 
-    border:5px solid #111;
+    border-radius:20px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+    animation:qrFloat 2s ease-in-out infinite;
 
 }
 
 
-@keyframes qrMove{
+.qr-pattern{
+
+    width:50px;
+    height:50px;
+
+    background:
+
+    linear-gradient(90deg,#111 12px,transparent 12px) 0 0,
+    linear-gradient(90deg,#111 12px,transparent 12px) 0 100%,
+    linear-gradient(90deg,#111 12px,transparent 12px) 100% 0,
+    linear-gradient(90deg,#111 12px,transparent 12px) 100% 100%;
+
+    background-size:25px 25px;
+
+    background-repeat:no-repeat;
+
+    border:4px solid #111;
+
+}
+
+
+@keyframes qrFloat{
 
     50%{
 
-        transform:translateY(-8px) scale(1.05);
+        transform:translateY(-8px);
 
     }
 
