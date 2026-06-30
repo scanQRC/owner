@@ -542,7 +542,6 @@ nav a:hover::after{
 
 }
 
-
 .qr-pattern{
 
     width:60px;
@@ -552,31 +551,9 @@ nav a:hover::after{
 
     position:relative;
 
-    border:5px solid #111;
+    border:3px solid #111;
 
-}
-
-
-.qr-pattern::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:5px;
-    top:5px;
-
-    width:15px;
-    height:15px;
-
-    background:#111;
-
-    box-shadow:
-
-    35px 0 #111,
-    0 35px #111,
-    35px 35px #111,
-    18px 18px #111;
+    overflow:hidden;
 
 }
 
