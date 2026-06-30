@@ -384,67 +384,94 @@ nav a:hover::after{
 
 }
 
-/* ================================
-   Hero
-================================ */
+/* ==================================
+   SCANME Premium Hero
+================================== */
 
 .hero{
+
+    position:relative;
+    overflow:hidden;
 
     min-height:85vh;
 
     display:flex;
-
     justify-content:center;
-
     align-items:center;
 
     padding:70px 20px;
 
 }
 
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    right:-120px;
+    top:80px;
+
+    background:linear-gradient(
+        135deg,
+        rgba(0,102,255,.15),
+        rgba(0,200,83,.12)
+    );
+
+    border-radius:50%;
+
+    filter:blur(10px);
+
+    z-index:-1;
+
+}
+
+
 .hero-content{
 
     width:100%;
-
     max-width:900px;
 
     text-align:center;
+
+    padding:50px 35px;
+
+    border-radius:35px;
+
+    background:rgba(255,255,255,.65);
+
+    box-shadow:var(--shadow);
+
+    backdrop-filter:blur(15px);
 
     animation:fadeUp .9s ease;
 
 }
 
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(40px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
 
 .hero h1{
 
     font-size:52px;
 
-    color:var(--primary);
-
     margin-bottom:18px;
 
     font-weight:800;
 
+    background:linear-gradient(
+        90deg,
+        #0066ff,
+        #00c853
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
 }
+
 
 .hero h2{
 
@@ -453,6 +480,7 @@ nav a:hover::after{
     margin-bottom:20px;
 
 }
+
 
 .hero p{
 
@@ -466,23 +494,37 @@ nav a:hover::after{
 
 }
 
+
 .qr-icon{
 
-    display:inline-block;
+    display:inline-flex;
 
-    margin-right:12px;
+    align-items:center;
+    justify-content:center;
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 20px;
 
     font-size:48px;
+
+    background:#fff;
+
+    border-radius:25px;
+
+    box-shadow:var(--shadow);
 
     animation:qrMove 2s infinite;
 
 }
 
+
 @keyframes qrMove{
 
     50%{
 
-        transform:rotate(10deg) scale(1.08);
+        transform:rotate(8deg) scale(1.08);
 
     }
 
