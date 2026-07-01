@@ -1,70 +1,42 @@
-// SCANME App Logic
+/* =====================================================
+   SCANME Enterprise Core Engine v1.0
+   ===================================================== */
 
-function searchVehicle() {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const vehicleId = document.getElementById("vehicleId").value.trim();
+    console.log("SCANME Platform Initialized");
 
-    if (!vehicleId) {
-        alert("Please enter Vehicle ID");
-        return;
+    // Hide Preloader
+    const preloader = document.getElementById("preloader");
+
+    if (preloader) {
+        window.addEventListener("load", () => {
+            preloader.style.opacity = "0";
+            setTimeout(() => {
+                preloader.style.display = "none";
+            }, 400);
+        });
     }
 
-    const data = localStorage.getItem(vehicleId);
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-    if (!data) {
-        alert("No vehicle found");
-        return;
-    }
+        link.addEventListener("click", function (e) {
 
-    const vehicle = JSON.parse(data);
+            const target = document.querySelector(this.getAttribute("href"));
 
-    alert(
-        "Vehicle Found!\n\n" +
-        "Owner: " + vehicle.ownerName + "\n" +
-        "Vehicle: " + vehicle.vehicleNumber + "\n" +
-        "Type: " + vehicle.vehicleType
-    );
-}
+            if (target) {
 
+                e.preventDefault();
 
-// Registration Form
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
 
-document.addEventListener("DOMContentLoaded", function () {
+            }
 
-    const form = document.getElementById("vehicleForm");
-
-    if (form) {
-
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const ownerName = document.getElementById("ownerName").value;
-            const vehicleNumber = document.getElementById("vehicleNumber").value;
-            const vehicleType = document.getElementById("vehicleType").value;
-            const mobile = document.getElementById("mobile").value;
-            const email = document.getElementById("email").value;
-
-            // Generate Vehicle ID
-            const vehicleId = "SCAN" + Math.floor(Math.random() * 1000000);
-
-            const vehicleData = {
-                ownerName,
-                vehicleNumber,
-                vehicleType,
-                mobile,
-                email,
-                vehicleId
-            };
-
-            // Save to localStorage
-            localStorage.setItem(vehicleId, JSON.stringify(vehicleData));
-
-            document.getElementById("result").innerText =
-                "Vehicle Registered! Your ID: " + vehicleId;
-
-            form.reset();
         });
 
-    }
+    });
 
 });
