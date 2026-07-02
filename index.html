@@ -110,47 +110,101 @@
 
 <body>
 
-<header>
+<!-- ======================================================
+     HEADER & NAVIGATION
+====================================================== -->
 
-<nav class="navbar">
-
-<div class="container">
-
-<a href="#" class="logo">
-
-<img src="assets/images/logo.png" alt="SCANME Logo">
-
-<span>SCANME</span>
-
+<a href="#main-content" class="skip-link">
+    Skip to Main Content
 </a>
 
-<ul class="nav-links">
+<header class="site-header" role="banner">
 
-<li><a href="#features">Features</a></li>
+    <nav class="navbar" aria-label="Primary Navigation">
 
-<li><a href="#how">How It Works</a></li>
+        <div class="container">
 
-<li><a href="#plans">Plans</a></li>
+            <!-- Logo -->
 
-<li><a href="#faq">FAQ</a></li>
+            <a href="/" class="logo" aria-label="SCANME Home">
 
-<li><a href="#contact">Contact</a></li>
+                <img src="assets/images/logo.png"
+                     alt="SCANME Logo"
+                     width="50"
+                     height="50"
+                     loading="eager"
+                     decoding="async">
 
-</ul>
+                <span>SCANME</span>
 
-<div class="nav-buttons">
+            </a>
 
-<a href="#" class="btn-secondary">Login</a>
+            <!-- Mobile Menu Button -->
 
-<a href="#" class="btn-primary">Register</a>
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Open Navigation Menu"
+                aria-expanded="false"
+                aria-controls="primary-navigation">
 
-</div>
+                <span></span>
+                <span></span>
+                <span></span>
 
-</div>
+            </button>
 
-</nav>
+            <!-- Navigation -->
+
+            <ul
+                class="nav-links"
+                id="primary-navigation">
+
+                <li><a href="#features">Features</a></li>
+
+                <li><a href="#how">How It Works</a></li>
+
+                <li><a href="#plans">Pricing</a></li>
+
+                <li><a href="#faq">FAQ</a></li>
+
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+
+            <!-- CTA Buttons -->
+
+            <div class="nav-buttons">
+
+                <a href="#"
+                   class="btn-secondary"
+                   aria-label="Login to your SCANME account">
+
+                    Login
+
+                </a>
+
+                <a href="#"
+                   class="btn-primary"
+                   aria-label="Register your vehicle with SCANME">
+
+                    Register
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
 
 </header>
+
+<!-- ======================================================
+     MAIN CONTENT START
+====================================================== -->
+
+<main id="main-content">
 
 <section class="hero">
 
