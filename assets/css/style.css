@@ -1,3 +1,16 @@
+body::before{
+  content:"SCANME UI v2.0 ACTIVE";
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:#0A4D9B;
+  color:#fff;
+  padding:8px 12px;
+  z-index:9999;
+  font-size:12px;
+  border-radius:8px;
+}
+
 /*======================================================
  SCANME Enterprise UI v2.0
  Premium Landing Page
