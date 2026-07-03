@@ -3130,11 +3130,15 @@ scroll-behavior:auto !important;
 
 .scroll-track{
 
-    display:inline-block;
+    display:inline-flex;
+
+    align-items:center;
 
     white-space:nowrap;
 
-    padding-left:100%;
+    width:max-content;
+
+    min-width:100%;
 
     font-size:15px;
 
@@ -3142,7 +3146,9 @@ scroll-behavior:auto !important;
 
     letter-spacing:.3px;
 
-    animation:scanmeTicker 22s linear infinite;
+    will-change:transform;
+
+    animation:scanmeTicker 18s linear infinite;
 
 }
 
@@ -3152,11 +3158,17 @@ scroll-behavior:auto !important;
 
 }
 
+.scroll-track::after{
+
+    content:"   🚗 Welcome to SCANME • Protect Your Vehicle with Smart QR • Privacy First • Instant Emergency Contact • Cars • Bikes • Commercial Vehicles • Register Today • 24×7 Secure Vehicle Protection • ";
+
+}
+
 @keyframes scanmeTicker{
 
     0%{
 
-        transform:translateX(0);
+        transform:translateX(100%);
 
     }
 
