@@ -1496,7 +1496,45 @@ color:var(--text-light);
 
 .live-status{
 
-background:#F8FBFF;
+position:relative;
+
+padding:110px 0;
+
+background:linear-gradient(180deg,#F8FBFF 0%,#F2F8FF 100%);
+
+overflow:hidden;
+
+}
+
+.live-status::before{
+
+content:"";
+
+position:absolute;
+
+left:-150px;
+
+bottom:-150px;
+
+width:420px;
+
+height:420px;
+
+border-radius:50%;
+
+background:rgba(21,201,122,.06);
+
+filter:blur(70px);
+
+pointer-events:none;
+
+}
+
+.live-status .container{
+
+position:relative;
+
+z-index:2;
 
 }
 
@@ -1504,63 +1542,203 @@ background:#F8FBFF;
 
 display:grid;
 
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(4,minmax(0,1fr));
 
-gap:25px;
+gap:28px;
+
+margin-top:60px;
 
 }
 
 .status-card{
 
-padding:35px 25px;
+position:relative;
 
-border-radius:22px;
+padding:38px 28px;
 
 background:#fff;
 
+border:1px solid #E8EEF8;
+
+border-radius:24px;
+
 text-align:center;
 
-box-shadow:var(--shadow);
+overflow:hidden;
 
-transition:.35s;
+box-shadow:0 15px 45px rgba(10,77,155,.08);
 
-border-top:6px solid transparent;
+transition:all .35s ease;
+
+}
+
+.status-card::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:5px;
+
+background:#D1D5DB;
 
 }
 
 .status-card:hover{
 
-transform:translateY(-8px);
+transform:translateY(-10px);
+
+box-shadow:0 30px 60px rgba(10,77,155,.14);
+
+border-color:rgba(10,77,155,.18);
 
 }
 
-.status-card.active{
+.status-card.active::before{
 
-border-color:#15C97A;
-
-}
-
-.status-card.warning{
-
-border-color:#F5B301;
+background:#15C97A;
 
 }
 
-.status-card.danger{
+.status-card.warning::before{
 
-border-color:#E53935;
+background:#F5B301;
 
 }
 
-.status-card.emergency{
+.status-card.danger::before{
 
-border-color:#0A4D9B;
+background:#E53935;
+
+}
+
+.status-card.emergency::before{
+
+background:#0A4D9B;
+
+}
+
+.status-card .status-icon{
+
+width:78px;
+
+height:78px;
+
+margin:0 auto 22px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+border-radius:22px;
+
+background:linear-gradient(135deg,#EEF5FF,#FFFFFF);
+
+color:var(--primary);
+
+font-size:34px;
+
+box-shadow:0 12px 28px rgba(10,77,155,.08);
+
+transition:all .35s ease;
+
+}
+
+.status-card:hover .status-icon{
+
+transform:scale(1.08) rotate(-8deg);
+
+background:linear-gradient(135deg,var(--primary),#1768C5);
+
+color:#fff;
 
 }
 
 .status-card h3{
 
-margin-bottom:18px;
+margin-bottom:14px;
+
+font-size:1.25rem;
+
+font-weight:700;
+
+color:var(--text);
+
+}
+
+.status-card p{
+
+margin:0;
+
+font-size:.96rem;
+
+line-height:1.75;
+
+color:var(--text-light);
+
+}
+
+.status-badge{
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+margin-top:20px;
+
+padding:8px 16px;
+
+border-radius:999px;
+
+font-size:13px;
+
+font-weight:700;
+
+background:#EEF5FF;
+
+color:var(--primary);
+
+}
+
+.status-card.active .status-badge{
+
+background:#E9FFF4;
+
+color:#079B55;
+
+}
+
+.status-card.warning .status-badge{
+
+background:#FFF8E5;
+
+color:#C78800;
+
+}
+
+.status-card.danger .status-badge{
+
+background:#FFECEC;
+
+color:#D92D20;
+
+}
+
+.status-card.emergency .status-badge{
+
+background:#EEF5FF;
+
+color:var(--primary);
 
 }
 
