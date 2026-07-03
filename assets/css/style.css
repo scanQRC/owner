@@ -3125,59 +3125,35 @@ scroll-behavior:auto !important;
 }
 
 .scroll-track{
-
     display:inline-block;
-
     white-space:nowrap;
-
-    padding-left:100%;
-
     font-size:15px;
-
     font-weight:600;
-
     line-height:46px;
-
-    animation:scanmeTicker 20s linear infinite;
-
+    will-change:transform;
+    animation:scanmeTicker 18s linear infinite;
 }
 
 .scroll-track:hover{
-
     animation-play-state:paused;
-
 }
 
 @keyframes scanmeTicker{
-
-    from{
-
-        transform:translateX(0);
-
+    0%{
+        transform:translateX(100%);
     }
-
-    to{
-
-        transform:translateX(-200%);
-
+    100%{
+        transform:translateX(-100%);
     }
-
 }
 
 @media(max-width:768px){
-
     .top-scroll-bar{
-
         height:42px;
-
     }
 
     .scroll-track{
-
         font-size:14px;
-
         line-height:42px;
-
     }
-
 }
