@@ -3112,6 +3112,9 @@ scroll-behavior:auto !important;
     align-items:center;
     position:relative;
     z-index:999;
+
+ margin-top: 80px;
+
 }
 
 .scroll-track{
