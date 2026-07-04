@@ -1,36 +1,81 @@
 /* =====================================================
-   SCANME Enterprise Core Engine v1.0
-   ===================================================== */
+   SCANME Enterprise Core Engine v2.0
+===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     console.log("SCANME Platform Initialized");
 
-    // Hide Preloader
+    /* -----------------------------
+       PRELOADER
+    ----------------------------- */
+
     const preloader = document.getElementById("preloader");
 
-    if (preloader) {
-        window.addEventListener("load", () => {
+    window.addEventListener("load", () => {
+
+        if (preloader) {
+
             preloader.style.opacity = "0";
+
             setTimeout(() => {
+
                 preloader.style.display = "none";
-            }, 400);
+
+            }, 300);
+
+        }
+
+    });
+
+    /* -----------------------------
+       MOBILE MENU
+    ----------------------------- */
+
+    const menuBtn = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".nav-links");
+
+    if (menuBtn && nav) {
+
+        menuBtn.addEventListener("click", () => {
+
+            nav.classList.toggle("active");
+            document.body.classList.toggle("menu-open");
+
         });
+
+        nav.querySelectorAll("a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                nav.classList.remove("active");
+                document.body.classList.remove("menu-open");
+
+            });
+
+        });
+
     }
 
-    // Smooth Scroll
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
+    /* -----------------------------
+       SMOOTH SCROLL
+    ----------------------------- */
 
-        link.addEventListener("click", function (e) {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+        anchor.addEventListener("click", function(e){
 
             const target = document.querySelector(this.getAttribute("href"));
 
-            if (target) {
+            if(target){
 
                 e.preventDefault();
 
                 target.scrollIntoView({
-                    behavior: "smooth"
+
+                    behavior:"smooth",
+                    block:"start"
+
                 });
 
             }
