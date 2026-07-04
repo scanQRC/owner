@@ -3171,3 +3171,36 @@ body.menu-open{
 .nav-links{
     overscroll-behavior:contain;
 }
+
+/*======================================================
+ PRELOADER
+======================================================*/
+
+.page-loader{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#ffffff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:opacity .3s ease;
+}
+
+.loader{
+    width:60px;
+    height:60px;
+    border:6px solid #E5E7EB;
+    border-top:6px solid #0A4D9B;
+    border-radius:50%;
+    animation:loaderSpin 1s linear infinite;
+}
+
+@keyframes loaderSpin{
+    to{
+        transform:rotate(360deg);
+    }
+}
