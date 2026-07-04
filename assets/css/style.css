@@ -3150,3 +3150,24 @@ scroll-behavior:auto !important;
         padding-right:50px;
     }
 }
+
+/* ===== Scroll Fix ===== */
+
+html{
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+}
+
+body{
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+body.menu-open{
+    overflow:hidden;
+}
+
+.nav-links{
+    overscroll-behavior:contain;
+}
