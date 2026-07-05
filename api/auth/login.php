@@ -83,6 +83,18 @@ try {
         exit;
     }
 
+    if (isset($user['status']) && $user['status'] !== 'active') {
+
+        http_response_code(403);
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'Your account is inactive.'
+        ]);
+
+        exit;
+    }
+
     session_regenerate_id(true);
 
     $_SESSION['logged_in'] = true;
