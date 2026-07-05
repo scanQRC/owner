@@ -66,3 +66,79 @@ if (strlen($password) < 8) {
 
     exit;
 }
+
+// Duplicate mobile check
+$stmt = $pdo->prepare("
+    SELECT id
+    FROM users
+    WHERE mobile = ?
+    LIMIT 1
+");
+$stmt->execute([$mobile]);
+
+if ($stmt->fetch()) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Mobile number already registered.'
+    ]);
+    exit;
+}
+
+// Duplicate email check
+$stmt = $pdo->prepare("
+    SELECT id
+    FROM users
+    WHERE email = ?
+    LIMIT 1
+");
+$stmt->execute([$email]);
+
+if ($stmt->fetch()) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Email already registered.'
+    ]);
+    exit;
+}
+
+// Password hashing
+$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+// Create account
+$stmt = $pdo->prepare("
+    INSERT INTO users
+    (
+        full_name,
+        mobile,
+        email,
+        password_hash
+    )
+    VALUES
+    (?, ?, ?, ?)
+");
+
+$stmt->execute([
+    $fullName,
+    $mobile,
+    $email,
+    $passwordHash
+]);
+
+$userId = (int)$pdo->lastInsertId();
+
+// Login session
+session_regenerate_id(true);
+
+$_SESSION['user_id'] = $userId;
+$_SESSION['user_name'] = $fullName;
+$_SESSION['user_email'] = $email;
+$_SESSION['logged_in'] = true;
+
+// Success response
+echo json_encode([
+    'success' => true,
+    'message' => 'Registration successful.',
+    'redirect' => '/dashboard/'
+]);
+
+exit;
