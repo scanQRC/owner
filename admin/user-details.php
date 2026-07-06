@@ -9,46 +9,32 @@ require_once '../config/db.php';
 require_once '../includes/functions.php';
 require_once '../includes/session.php';
 
+/* ---------------- AUTH CHECK ---------------- */
 if (empty($_SESSION['logged_in'])) {
     header('Location: ../login.php');
     exit;
 }
 
-$stmt = $pdo->prepare("
-    SELECT role
-    FROM users
-    WHERE id = ?
-    LIMIT 1
-");
+/* ---------------- ADMIN CHECK (SIMPLIFIED) ---------------- */
+$stmt = $pdo->prepare("SELECT role FROM users WHERE id = ? LIMIT 1");
+$stmt->execute([$_SESSION['user_id']]);
 
-$stmt->execute([
-    $_SESSION['user_id']
-]);
-
-$admin = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$admin || $admin['role'] !== 'admin') {
+if ($stmt->fetchColumn() !== 'admin') {
     http_response_code(403);
     exit('Access denied.');
 }
 
-$userId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+/* ---------------- USER ID VALIDATION ---------------- */
+$userId = (int)($_GET['id'] ?? 0);
 
 if ($userId <= 0) {
     header('Location: users.php');
     exit;
 }
 
+/* ---------------- FETCH USER ---------------- */
 $stmt = $pdo->prepare("
-    SELECT
-        id,
-        full_name,
-        email,
-        mobile,
-        role,
-        status,
-        created_at,
-        last_login
+    SELECT id, full_name, email, mobile, role, status, created_at, last_login
     FROM users
     WHERE id = ?
     LIMIT 1
@@ -70,13 +56,17 @@ include_once '../includes/header.php';
 
     <div class="card shadow-sm">
 
-        <div class="card-header">
-            <h3>User Details</h3>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">User Details</h3>
+
+            <a href="users.php" class="btn btn-sm btn-secondary">
+                Back
+            </a>
         </div>
 
         <div class="card-body">
 
-            <table class="table table-bordered">
+            <table class="table table-bordered align-middle">
 
                 <tr>
                     <th width="220">User ID</th>
@@ -100,12 +90,20 @@ include_once '../includes/header.php';
 
                 <tr>
                     <th>Role</th>
-                    <td><?= htmlspecialchars($user['role']); ?></td>
+                    <td>
+                        <span class="badge bg-primary">
+                            <?= htmlspecialchars($user['role']); ?>
+                        </span>
+                    </td>
                 </tr>
 
                 <tr>
                     <th>Status</th>
-                    <td><?= htmlspecialchars($user['status']); ?></td>
+                    <td>
+                        <span class="badge bg-<?= $user['status'] === 'active' ? 'success' : 'secondary'; ?>">
+                            <?= htmlspecialchars($user['status']); ?>
+                        </span>
+                    </td>
                 </tr>
 
                 <tr>
@@ -115,14 +113,14 @@ include_once '../includes/header.php';
 
                 <tr>
                     <th>Last Login</th>
-                    <td><?= htmlspecialchars($user['last_login']); ?></td>
+                    <td>
+                        <?= $user['last_login']
+                            ? htmlspecialchars($user['last_login'])
+                            : '<span class="text-muted">Never logged in</span>'; ?>
+                    </td>
                 </tr>
 
             </table>
-
-            <a href="users.php" class="btn btn-secondary">
-                Back
-            </a>
 
         </div>
 
