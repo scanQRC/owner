@@ -9,65 +9,58 @@ require_once '../config/db.php';
 require_once '../includes/functions.php';
 require_once '../includes/session.php';
 
+/* ---------------- AUTH CHECK ---------------- */
 if (empty($_SESSION['logged_in'])) {
     header('Location: ../login.php');
     exit;
 }
 
-$stmt = $pdo->prepare("
-    SELECT role
-    FROM users
-    WHERE id = ?
-    LIMIT 1
-");
-
+/* ---------------- ADMIN CHECK (OPTIMIZED) ---------------- */
+$stmt = $pdo->prepare("SELECT role FROM users WHERE id = ? LIMIT 1");
 $stmt->execute([$_SESSION['user_id']]);
 
-$admin = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$admin || $admin['role'] !== 'admin') {
+if ($stmt->fetchColumn() !== 'admin') {
     http_response_code(403);
     exit('Access denied.');
 }
 
 $pageTitle = 'Manage Users';
 
-/* ---------------- SEARCH ---------------- */
+/* ---------------- INPUTS ---------------- */
 $search = trim($_GET['search'] ?? '');
+$page   = max(1, (int)($_GET['page'] ?? 1));
 
-/* ---------------- PAGINATION ---------------- */
-$limit = 10;
-$page = max(1, (int)($_GET['page'] ?? 1));
+$limit  = 10;
 $offset = ($page - 1) * $limit;
 
-/* ---------------- TOTAL COUNT ---------------- */
-$countSql = "SELECT COUNT(*) FROM users";
+/* ---------------- COMMON WHERE BLOCK ---------------- */
+$where  = "";
 $params = [];
 
 if ($search !== '') {
-    $countSql .= " WHERE full_name LIKE ? OR email LIKE ? OR mobile LIKE ?";
+    $where = "WHERE full_name LIKE ? OR email LIKE ? OR mobile LIKE ?";
     $params = ["%$search%", "%$search%", "%$search%"];
 }
 
-$stmt = $pdo->prepare($countSql);
+/* ---------------- TOTAL USERS COUNT ---------------- */
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM users $where");
 $stmt->execute($params);
+
 $totalUsers = (int)$stmt->fetchColumn();
 $totalPages = (int)ceil($totalUsers / $limit);
 
-/* ---------------- DATA QUERY ---------------- */
+/* ---------------- USERS DATA ---------------- */
 $sql = "
     SELECT id, full_name, email, mobile, status, created_at
     FROM users
+    $where
+    ORDER BY id DESC
+    LIMIT $limit OFFSET $offset
 ";
-
-if ($search !== '') {
-    $sql .= " WHERE full_name LIKE ? OR email LIKE ? OR mobile LIKE ?";
-}
-
-$sql .= " ORDER BY id DESC LIMIT $limit OFFSET $offset";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
+
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 include_once '../includes/header.php';
@@ -78,19 +71,22 @@ include_once '../includes/header.php';
     <div class="card shadow-sm">
 
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h3>Manage Users</h3>
+            <h3 class="mb-0">Manage Users</h3>
 
             <form method="GET" class="d-flex">
-                <input type="text" name="search" class="form-control form-control-sm"
-                       placeholder="Search name, email, mobile"
+                <input type="text"
+                       name="search"
+                       class="form-control form-control-sm"
+                       placeholder="Search name, email, mobile..."
                        value="<?= htmlspecialchars($search); ?>">
+
                 <button class="btn btn-sm btn-primary ms-2">Search</button>
             </form>
         </div>
 
         <div class="card-body table-responsive">
 
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover align-middle">
 
                 <thead>
                     <tr>
@@ -100,15 +96,17 @@ include_once '../includes/header.php';
                         <th>Mobile</th>
                         <th>Status</th>
                         <th>Created</th>
-                        <th width="160">Action</th>
+                        <th width="170">Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
-                <?php if (empty($users)): ?>
+                <?php if (!$users): ?>
                     <tr>
-                        <td colspan="7" class="text-center">No users found</td>
+                        <td colspan="7" class="text-center text-muted">
+                            No users found
+                        </td>
                     </tr>
                 <?php endif; ?>
 
@@ -116,12 +114,17 @@ include_once '../includes/header.php';
 
                     <tr>
                         <td><?= (int)$user['id']; ?></td>
+
                         <td><?= htmlspecialchars($user['full_name']); ?></td>
                         <td><?= htmlspecialchars($user['email']); ?></td>
                         <td><?= htmlspecialchars($user['mobile']); ?></td>
+
                         <td>
-                            <?= htmlspecialchars($user['status']); ?>
+                            <span class="badge bg-<?= $user['status'] === 'active' ? 'success' : 'secondary'; ?>">
+                                <?= htmlspecialchars($user['status']); ?>
+                            </span>
                         </td>
+
                         <td><?= htmlspecialchars($user['created_at']); ?></td>
 
                         <td>
@@ -130,17 +133,10 @@ include_once '../includes/header.php';
                                 View
                             </a>
 
-                            <?php if ($user['status'] === 'active'): ?>
-                                <a href="toggle-status.php?id=<?= (int)$user['id']; ?>"
-                                   class="btn btn-sm btn-warning">
-                                    Disable
-                                </a>
-                            <?php else: ?>
-                                <a href="toggle-status.php?id=<?= (int)$user['id']; ?>"
-                                   class="btn btn-sm btn-success">
-                                    Enable
-                                </a>
-                            <?php endif; ?>
+                            <a href="toggle-status.php?id=<?= (int)$user['id']; ?>"
+                               class="btn btn-sm btn-<?= $user['status'] === 'active' ? 'warning' : 'success'; ?>">
+                                <?= $user['status'] === 'active' ? 'Disable' : 'Enable'; ?>
+                            </a>
                         </td>
                     </tr>
 
@@ -155,11 +151,11 @@ include_once '../includes/header.php';
         <!-- PAGINATION -->
         <div class="card-footer d-flex justify-content-between">
 
-            <div>
+            <small>
                 Showing <?= $totalUsers > 0 ? ($offset + 1) : 0; ?>
                 to <?= min($offset + $limit, $totalUsers); ?>
                 of <?= $totalUsers; ?> users
-            </div>
+            </small>
 
             <nav>
                 <ul class="pagination pagination-sm mb-0">
