@@ -4,45 +4,107 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/config.php';
 
-if (session_status() === PHP_SESSION_NONE) {
+/*
+|--------------------------------------------------------------------------
+| Secure Session Configuration
+|--------------------------------------------------------------------------
+*/
 
-    session_name(SESSION_NAME);
+ini_set('session.use_strict_mode', '1');
+ini_set('session.use_only_cookies', '1');
+ini_set('session.use_trans_sid', '0');
+ini_set('session.cookie_httponly', '1');
+ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.gc_maxlifetime', '7200');
 
-    $secure = (
-        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)
-    );
+$secure = (
+    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+    (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)
+);
 
-    session_set_cookie_params([
-        'lifetime' => 0,
-        'path'     => '/',
-        'domain'   => '',
-        'secure'   => $secure,
-        'httponly' => true,
-        'samesite' => 'Lax',
-    ]);
+if ($secure) {
+    ini_set('session.cookie_secure', '1');
+}
 
-    ini_set('session.use_strict_mode', '1');
-    ini_set('session.use_only_cookies', '1');
-    ini_set('session.cookie_httponly', '1');
-    ini_set('session.cookie_samesite', 'Lax');
+session_name(SESSION_NAME);
 
-    if ($secure) {
-        ini_set('session.cookie_secure', '1');
-    }
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path'     => '/',
+    'domain'   => '',
+    'secure'   => $secure,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
 
+if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
+}
 
-    if (!isset($_SESSION['created'])) {
-        session_regenerate_id(true);
-        $_SESSION['created'] = time();
+/*
+|--------------------------------------------------------------------------
+| Session Fixation Protection
+|--------------------------------------------------------------------------
+*/
+
+if (!isset($_SESSION['_created'])) {
+
+    session_regenerate_id(true);
+
+    $_SESSION['_created'] = time();
+}
+
+if ((time() - (int)$_SESSION['_created']) > 1800) {
+
+    session_regenerate_id(true);
+
+    $_SESSION['_created'] = time();
+}
+
+/*
+|--------------------------------------------------------------------------
+| Helper Functions
+|--------------------------------------------------------------------------
+*/
+
+function session_set(string $key, mixed $value): void
+{
+    $_SESSION[$key] = $value;
+}
+
+function session_get(string $key, mixed $default = null): mixed
+{
+    return $_SESSION[$key] ?? $default;
+}
+
+function session_has(string $key): bool
+{
+    return array_key_exists($key, $_SESSION);
+}
+
+function session_remove(string $key): void
+{
+    unset($_SESSION[$key]);
+}
+
+function session_destroy_all(): void
+{
+    $_SESSION = [];
+
+    if (ini_get('session.use_cookies')) {
+
+        $params = session_get_cookie_params();
+
+        setcookie(
+            session_name(),
+            '',
+            time() - 42000,
+            $params['path'],
+            $params['domain'],
+            $params['secure'],
+            $params['httponly']
+        );
     }
 
-    if (
-        isset($_SESSION['created']) &&
-        (time() - (int) $_SESSION['created']) > 1800
-    ) {
-        session_regenerate_id(true);
-        $_SESSION['created'] = time();
-    }
+    session_destroy();
 }
