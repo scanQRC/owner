@@ -3251,10 +3251,11 @@ main{
 }
 
 .module-card img{
-    width:90px;
-    height:90px;
+    display:block;
+    width:140px;
+    height:140px;
     object-fit:contain;
-    margin-bottom:15px;
+    margin:0 auto 20px;
 }
 
 .module-card h3{
