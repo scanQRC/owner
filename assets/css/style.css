@@ -3310,3 +3310,117 @@ grid-template-columns:1fr;
 }
 
 }
+
+/* ==========================================
+   SCANME MODULE POPUP
+========================================== */
+
+.module-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    backdrop-filter:blur(6px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    padding:20px;
+}
+
+.popup-box{
+    position:relative;
+    width:100%;
+    max-width:460px;
+    background:#ffffff;
+    border-radius:22px;
+    padding:40px 30px;
+    text-align:center;
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+    animation:popupShow .35s ease;
+}
+
+@keyframes popupShow{
+
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+.popup-close{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:32px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#777;
+    transition:.3s;
+}
+
+.popup-close:hover{
+    color:#e53935;
+    transform:rotate(90deg);
+}
+
+#popupLogo{
+    width:150px;
+    height:150px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 20px;
+}
+
+#popupTitle{
+    font-size:28px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:12px;
+}
+
+#popupMessage{
+    font-size:16px;
+    color:#666;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+#popupButton{
+    background:#ff9800;
+    color:#fff;
+    border:none;
+    border-radius:50px;
+    padding:14px 32px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#popupButton:hover{
+    background:#f57c00;
+    transform:translateY(-2px);
+}
+
+@media(max-width:768px){
+
+    .popup-box{
+        padding:30px 20px;
+    }
+
+    #popupLogo{
+        width:120px;
+        height:120px;
+    }
+
+    #popupTitle{
+        font-size:24px;
+    }
+
+}
