@@ -83,5 +83,90 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     });
+   
+/* =====================================================
+   SCANME MODULE POPUP
+===================================================== */
 
+const moduleData = {
+    vehicle: {
+        logo: "assets/images/modules/vehicle.png",
+        title: "SCANME Vehicle",
+        message: "Vehicle Registration is now available.",
+        button: "Register Now"
+    },
+    school: {
+        logo: "assets/images/modules/school.png",
+        title: "SCANME School",
+        message: "School Module is coming soon.",
+        button: "Coming Soon"
+    },
+    hotel: {
+        logo: "assets/images/modules/hotel.png",
+        title: "SCANME Hotel & Restaurant",
+        message: "Hotel & Restaurant Module is coming soon.",
+        button: "Coming Soon"
+    },
+    business: {
+        logo: "assets/images/modules/business.png",
+        title: "SCANME Business",
+        message: "Business Module is coming soon.",
+        button: "Coming Soon"
+    },
+    mobile: {
+        logo: "assets/images/modules/mobile.png",
+        title: "SCANME Mobile",
+        message: "Mobile Security Module is coming soon.",
+        button: "Coming Soon"
+    },
+    personal: {
+        logo: "assets/images/modules/personal.png",
+        title: "SCANME Personal ID",
+        message: "Personal ID Module is coming soon.",
+        button: "Coming Soon"
+    }
+};
+
+const popup = document.getElementById("modulePopup");
+
+if (popup) {
+
+    const popupLogo = document.getElementById("popupLogo");
+    const popupTitle = document.getElementById("popupTitle");
+    const popupMessage = document.getElementById("popupMessage");
+    const popupButton = document.getElementById("popupButton");
+    const popupClose = document.querySelector(".popup-close");
+
+    document.querySelectorAll(".module-card").forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const key = card.dataset.module;
+
+            const module = moduleData[key];
+
+            if (!module) return;
+
+            popupLogo.src = module.logo;
+            popupTitle.textContent = module.title;
+            popupMessage.textContent = module.message;
+            popupButton.textContent = module.button;
+
+            popup.style.display = "flex";
+
+        });
+
+    });
+
+    popupClose.addEventListener("click", () => {
+        popup.style.display = "none";
+    });
+
+    popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+            popup.style.display = "none";
+        }
+    });
+
+}
 });
