@@ -3121,7 +3121,11 @@ scroll-behavior:auto !important;
     align-items:center;
     white-space:nowrap;
     width:max-content;
-    animation:scanmeTicker 18s linear infinite;
+    animation:scanmeTicker 45s linear infinite;
+}
+
+.scroll-track:hover{
+    animation-play-state: paused;
 }
 
 .scroll-track span{
