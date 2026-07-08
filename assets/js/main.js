@@ -119,13 +119,25 @@ const moduleData = {
         message: "Mobile Security Module is coming soon.",
         button: "Coming Soon"
     },
-    personal: {
-        logo: "assets/images/modules/personal.png",
-        title: "SCANME Personal ID",
-        message: "Personal ID Module is coming soon.",
+   child saftey: {
+        logo: "assets/images/modules/child saftey.png",
+        title: "SCANME Child Saftey",
+        message: "child saftey Module is coming soon.",
         button: "Coming Soon"
-    }
-};
+    },
+   pet: {
+        logo: "assets/images/modules/pet.png",
+        title: "SCANME Pet",
+        message: "Pet Module is coming soon.",
+        button: "Coming Soon"
+    },
+   
+    lost & found: {
+        logo: "assets/images/modules/lost & found.png",
+        title: "SCANME Lost & Found",
+        message: "lost & found Module is coming soon.",
+        button: "Coming Soon"
+    },
 
 const popup = document.getElementById("modulePopup");
 
