@@ -3213,3 +3213,90 @@ body.menu-open{
 main{
     padding-top:128px;
 }
+
+/* ==========================================
+   SCANME MODULES
+========================================== */
+
+.modules-section{
+    padding:80px 0;
+}
+
+.modules-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.module-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:30px 20px;
+    text-align:center;
+    border:1px solid #e8e8e8;
+    transition:.3s;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.module-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+.module-card img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
+.module-card h3{
+    font-size:22px;
+    margin:10px 0;
+}
+
+.module-card p{
+    color:#666;
+    font-size:15px;
+    margin-bottom:20px;
+}
+
+.status{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+}
+
+.available{
+    background:#22c55e;
+    color:#fff;
+}
+
+.soon{
+    background:#ff9800;
+    color:#fff;
+}
+
+@media(max-width:768px){
+
+.modules-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:480px){
+
+.modules-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
