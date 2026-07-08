@@ -89,55 +89,71 @@ document.addEventListener("DOMContentLoaded", () => {
 ===================================================== */
 
 const moduleData = {
+
     vehicle: {
         logo: "assets/images/modules/vehicle.png",
         title: "SCANME Vehicle",
         message: "Vehicle Registration is now available.",
         button: "Register Now"
     },
+
     school: {
         logo: "assets/images/modules/school.png",
         title: "SCANME School",
         message: "School Module is coming soon.",
         button: "Coming Soon"
     },
+
     hotel: {
         logo: "assets/images/modules/hotel.png",
         title: "SCANME Hotel & Restaurant",
         message: "Hotel & Restaurant Module is coming soon.",
         button: "Coming Soon"
     },
+
     business: {
         logo: "assets/images/modules/business.png",
         title: "SCANME Business",
         message: "Business Module is coming soon.",
         button: "Coming Soon"
     },
+
     mobile: {
         logo: "assets/images/modules/mobile.png",
         title: "SCANME Mobile",
         message: "Mobile Security Module is coming soon.",
         button: "Coming Soon"
     },
-   child saftey: {
-        logo: "assets/images/modules/child saftey.png",
-        title: "SCANME Child Saftey",
-        message: "child saftey Module is coming soon.",
+
+    personal: {
+        logo: "assets/images/modules/personal.png",
+        title: "SCANME Personal ID",
+        message: "Personal ID Module is coming soon.",
         button: "Coming Soon"
     },
-   pet: {
+
+    child_safety: {
+        logo: "assets/images/modules/child_safety.png",
+        title: "SCANME Child Safety",
+        message: "Child Safety Module is coming soon.",
+        button: "Coming Soon"
+    },
+
+    pet: {
         logo: "assets/images/modules/pet.png",
         title: "SCANME Pet",
         message: "Pet Module is coming soon.",
         button: "Coming Soon"
     },
-   
-    lost & found: {
-        logo: "assets/images/modules/lost & found.png",
+
+    lost_found: {
+        logo: "assets/images/modules/lost_found.png",
         title: "SCANME Lost & Found",
-        message: "lost & found Module is coming soon.",
+        message: "Lost & Found Module is coming soon.",
         button: "Coming Soon"
-    },
+    }
+
+};
 
 const popup = document.getElementById("modulePopup");
 
@@ -154,7 +170,6 @@ if (popup) {
         card.addEventListener("click", () => {
 
             const key = card.dataset.module;
-
             const module = moduleData[key];
 
             if (!module) return;
@@ -181,4 +196,3 @@ if (popup) {
     });
 
 }
-});
