@@ -23,6 +23,7 @@ function admin_login(array $admin): void
         'role'       => $admin['role'],
         'status'     => $admin['status'],
         'login_time' => time(),
+        'last_activity' => time(),
     ];
 }
 
