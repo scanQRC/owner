@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-session_start();
-
 header('Content-Type: application/json');
 
-require_once '../../config/config.php';
-require_once '../../config/db.php';
-require_once '../../includes/functions.php';
+require_once '../../config/bootstrap.php';
+require_once '../../config/auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -17,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         'success' => false,
         'message' => 'Method not allowed.'
     ]);
-
     exit;
 }
 
@@ -38,7 +34,7 @@ try {
 
         echo json_encode([
             'success' => false,
-            'message' => 'Login and password are required.'
+            'message' => 'Mobile/Email and Password are required.'
         ]);
 
         exit;
@@ -47,19 +43,18 @@ try {
     $stmt = $pdo->prepare("
         SELECT *
         FROM users
-        WHERE mobile = ?
-           OR email = ?
+        WHERE mobile = :login
+           OR email = :login
         LIMIT 1
     ");
 
     $stmt->execute([
-        $login,
-        $login
+        ':login' => $login
     ]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$user) {
+    if (!$user || !password_verify($password, $user['password_hash'])) {
 
         http_response_code(401);
 
@@ -71,40 +66,31 @@ try {
         exit;
     }
 
-    if (!password_verify($password, $user['password_hash'])) {
-
-        http_response_code(401);
-
-        echo json_encode([
-            'success' => false,
-            'message' => 'Invalid login credentials.'
-        ]);
-
-        exit;
-    }
-
-    if (isset($user['status']) && $user['status'] !== 'active') {
+    if (($user['status'] ?? '') !== 'active') {
 
         http_response_code(403);
 
         echo json_encode([
             'success' => false,
-            'message' => 'Your account is inactive.'
+            'message' => 'Account is inactive.'
         ]);
 
         exit;
     }
 
-    session_regenerate_id(true);
-
-    $_SESSION['logged_in'] = true;
-    $_SESSION['user_id'] = (int)$user['id'];
-    $_SESSION['user_name'] = $user['full_name'];
-    $_SESSION['user_email'] = $user['email'];
+    admin_login([
+        'id'       => (int)$user['id'],
+        'name'     => $user['full_name'],
+        'username' => $user['mobile'],
+        'email'    => $user['email'],
+        'role'     => $user['role'] ?? 'user',
+        'status'   => $user['status']
+    ]);
 
     $stmt = $pdo->prepare("
         UPDATE users
-        SET last_login = NOW()
+        SET
+            last_login = NOW()
         WHERE id = ?
     ");
 
@@ -115,10 +101,8 @@ try {
     echo json_encode([
         'success' => true,
         'message' => 'Login successful.',
-        'redirect' => '/dashboard/'
+        'redirect' => APP_URL . '/dashboard/'
     ]);
-
-    exit;
 
 } catch (Throwable $e) {
 
@@ -126,8 +110,8 @@ try {
 
     echo json_encode([
         'success' => false,
-        'message' => 'Something went wrong.'
+        'message' => APP_DEBUG
+            ? $e->getMessage()
+            : 'Something went wrong.'
     ]);
-
-    exit;
 }
