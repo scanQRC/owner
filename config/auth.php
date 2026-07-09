@@ -1,4 +1,3 @@
-/*
 |--------------------------------------------------------------------------
 | Authentication Constants
 |--------------------------------------------------------------------------
@@ -41,15 +40,31 @@ function admin(): ?array
 
 function admin_logged_in(): bool
 {
-    return isset($_SESSION[ADMIN_SESSION_KEY]);
+    if (!isset($_SESSION[ADMIN_SESSION_KEY])) {
+        return false;
+    }
+
+    // Session Timeout (2 Hours)
+    $timeout = 60 * 60 * 2;
+
+    if (
+        isset($_SESSION[ADMIN_SESSION_KEY]['last_activity']) &&
+        (time() - $_SESSION[ADMIN_SESSION_KEY]['last_activity']) > $timeout
+    ) {
+        admin_logout();
+        return false;
+    }
+
+    // Update Last Activity
+    $_SESSION[ADMIN_SESSION_KEY]['last_activity'] = time();
+
+    return true;
 }
 
 function admin_id(): ?int
 {
     return $_SESSION[ADMIN_SESSION_KEY]['id'] ?? null;
 }
-
-/*
 |--------------------------------------------------------------------------
 | Route Protection
 |--------------------------------------------------------------------------
