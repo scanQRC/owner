@@ -61,28 +61,33 @@ document.addEventListener("DOMContentLoaded", () => {
        SMOOTH SCROLL
     ----------------------------- */
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-        anchor.addEventListener("click", function(e){
+    anchor.addEventListener("click", function(e){
 
-            const target = document.querySelector(this.getAttribute("href"));
+        const href = this.getAttribute("href");
 
-            if(target){
+        // Ignore empty anchors like "#"
+        if (!href || href === "#") {
+            return;
+        }
 
-                e.preventDefault();
+        const target = document.querySelector(href);
 
-                target.scrollIntoView({
+        if (target) {
 
-                    behavior:"smooth",
-                    block:"start"
+            e.preventDefault();
 
-                });
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
-            }
-
-        });
+        }
 
     });
+
+});
    
 /* =====================================================
    SCANME MODULE POPUP
