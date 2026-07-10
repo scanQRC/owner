@@ -116,10 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     }, 500);
 
-                      window.location.href = result.redirect;
-
-                    }, 500);
-
                                 } else {
 
                     loginMessage.innerHTML =
