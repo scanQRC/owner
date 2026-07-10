@@ -116,7 +116,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     }, 500);
 
-                } else {
+                      window.location.href = result.redirect;
+
+                    }, 500);
+
+                                } else {
 
                     loginMessage.innerHTML =
                         "<span style='color:red'>" +
@@ -125,16 +129,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-            } 
+            } catch (error) {
 
-    console.error("LOGIN ERROR:", error);
+                console.error("LOGIN ERROR:", error);
 
-    alert(error.message);
+                alert(error.message);
 
-    loginMessage.innerHTML =
-        "<span style='color:red'>" + error.message + "</span>";
+                loginMessage.innerHTML =
+                    "<span style='color:red'>" +
+                    error.message +
+                    "</span>";
 
-}
+            }
 
             submitBtn.disabled = false;
             submitBtn.innerHTML = "Login";
