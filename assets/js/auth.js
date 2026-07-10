@@ -125,14 +125,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-            } catch (error) {
+            } 
 
-                console.error(error);
+    console.error("LOGIN ERROR:", error);
 
-                loginMessage.innerHTML =
-                    "<span style='color:red'>Unable to connect to server.</span>";
+    alert(error.message);
 
-            }
+    loginMessage.innerHTML =
+        "<span style='color:red'>" + error.message + "</span>";
+
+}
 
             submitBtn.disabled = false;
             submitBtn.innerHTML = "Login";
