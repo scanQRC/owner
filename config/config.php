@@ -11,12 +11,12 @@ declare(strict_types=1);
 date_default_timezone_set('Asia/Kolkata');
 
 define('APP_NAME', 'SCANME QR');
-define('APP_URL', 'https://scanme.page.gd');
+define('APP_URL', 'https://scanmeqr.in');
 
-define('DB_HOST', 'sql213.infinityfree.com');
-define('DB_NAME', 'if0_42344499_scanme');
-define('DB_USER', 'if0_42344499');
-define('DB_PASS', 'scanme555');
+define('DB_HOST', 'YOUR_DB_HOST');
+define('DB_NAME', 'YOUR_DB_NAME');
+define('DB_USER', 'YOUR_DB_USER');
+define('DB_PASS', 'YOUR_DB_PASSWORD');
 
 define('PASSWORD_COST', 12);
 
