@@ -5,7 +5,6 @@ declare(strict_types=1);
 header('Content-Type: application/json');
 
 require_once '../../config/bootstrap.php';
-require_once '../../config/auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
