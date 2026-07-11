@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-session_start();
-
 header('Content-Type: application/json');
 
-require_once '../../config/config.php';
-require_once '../../includes/functions.php';
+require_once '../../config/bootstrap.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
@@ -23,41 +20,26 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
 
-    $_SESSION = [];
-
-    if (ini_get('session.use_cookies')) {
-
-        $params = session_get_cookie_params();
-
-        setcookie(
-            session_name(),
-            '',
-            time() - 42000,
-            $params['path'],
-            $params['domain'],
-            (bool)$params['secure'],
-            (bool)$params['httponly']
-        );
-    }
-
-    session_destroy();
+    admin_logout();
 
     echo json_encode([
-        'success' => true,
-        'message' => 'Logout successful.',
-        'redirect' => '/login/'
+        'success'  => true,
+        'message'  => 'Logout successful.',
+        'redirect' => APP_URL . '/admin/login.php'
     ]);
 
-    exit;
-
 } catch (Throwable $e) {
+
+    if (function_exists('log_error')) {
+        log_error('Logout Error: ' . $e->getMessage());
+    }
 
     http_response_code(500);
 
     echo json_encode([
         'success' => false,
-        'message' => 'Something went wrong.'
+        'message' => APP_DEBUG
+            ? $e->getMessage()
+            : 'Something went wrong.'
     ]);
-
-    exit;
 }
