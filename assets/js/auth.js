@@ -1,9 +1,10 @@
 /* =====================================================
-   SCANME Authentication Engine v2.1
+   SCANME Authentication Engine v2.2
    CSRF Protected Login
+   Auto Token Fetch
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     const loginBtn = document.getElementById("loginBtn");
     const loginModal = document.getElementById("loginModal");
@@ -20,13 +21,52 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!loginForm) return;
 
 
+    let csrfToken = "";
+
+
     /*
     |--------------------------------------------------------------------------
-    | CSRF Token
+    | Load CSRF Token
     |--------------------------------------------------------------------------
     */
 
-    const csrfToken = window.CSRF_TOKEN || "";
+    async function loadCSRFToken() {
+
+        try {
+
+            const response = await fetch(
+                "api/auth/csrf-token.php",
+                {
+                    method: "GET",
+                    credentials: "same-origin"
+                }
+            );
+
+
+            const result = await response.json();
+
+
+            if (result.success) {
+
+                csrfToken = result.token;
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "CSRF Token Error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    await loadCSRFToken();
+
 
 
     function showMessage(message, success = false) {
@@ -35,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `<span style="color:${success ? "green" : "red"}">${message}</span>`;
 
     }
+
 
 
     function openModal() {
@@ -50,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
     function closeModal() {
 
         loginModal.style.display = "none";
@@ -61,44 +103,63 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
     if (loginBtn) {
 
-        loginBtn.addEventListener("click", openModal);
+        loginBtn.addEventListener(
+            "click",
+            openModal
+        );
 
     }
+
 
 
     if (closeBtn) {
 
-        closeBtn.addEventListener("click", closeModal);
+        closeBtn.addEventListener(
+            "click",
+            closeModal
+        );
 
     }
 
 
-    window.addEventListener("click", (e) => {
 
-        if (e.target === loginModal) {
+    window.addEventListener(
+        "click",
+        (e) => {
 
-            closeModal();
+            if (e.target === loginModal) {
 
-        }
+                closeModal();
 
-    });
-
-
-    document.addEventListener("keydown", (e) => {
-
-        if (e.key === "Escape") {
-
-            closeModal();
+            }
 
         }
-
-    });
-
+    );
 
 
-    loginForm.addEventListener("submit", async (e) => {
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+
+            if (e.key === "Escape") {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+
+    loginForm.addEventListener(
+        "submit",
+        async (e) => {
+
 
         e.preventDefault();
 
@@ -107,35 +168,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const login = loginInput.value.trim();
+
         const password = passwordInput.value;
+
 
 
         if (!login || !password) {
 
-            showMessage("Please enter Mobile/Email and Password.");
+            showMessage(
+                "Please enter Mobile/Email and Password."
+            );
 
             return;
 
         }
+
 
 
         if (!csrfToken) {
 
-            showMessage("Security token missing. Refresh page and try again.");
+            await loadCSRFToken();
+
+        }
+
+
+
+        if (!csrfToken) {
+
+            showMessage(
+                "Security token missing. Refresh page and try again."
+            );
 
             return;
 
         }
 
 
+
         submitBtn.disabled = true;
+
         submitBtn.textContent = "Please wait...";
+
 
 
         try {
 
 
-            const response = await fetch("api/auth/login.php", {
+            const response = await fetch(
+                "api/auth/login.php",
+                {
 
                 method: "POST",
 
@@ -165,7 +246,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!response.ok) {
 
-                throw new Error("Server error.");
+                throw new Error(
+                    "Server error."
+                );
 
             }
 
@@ -178,26 +261,29 @@ document.addEventListener("DOMContentLoaded", () => {
             if (result.success) {
 
 
-                showMessage(result.message, true);
+                showMessage(
+                    result.message,
+                    true
+                );
 
 
+                setTimeout(
+                    () => {
 
-                setTimeout(() => {
+                    window.location.href =
+                        result.redirect;
 
-
-                    window.location.href = result.redirect;
-
-
-
-                }, 500);
-
+                    },
+                    500
+                );
 
 
             } else {
 
 
-                showMessage(result.message);
-
+                showMessage(
+                    result.message
+                );
 
 
             }
@@ -207,10 +293,16 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
 
 
-            console.error("Login Error:", error);
+            console.error(
+                "Login Error:",
+                error
+            );
 
 
-            showMessage("Unable to connect to server.");
+            showMessage(
+                "Unable to connect to server."
+            );
+
 
         }
 
