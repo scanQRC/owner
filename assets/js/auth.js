@@ -1,5 +1,5 @@
 /* =====================================================
-   SCANME Authentication Engine v1.0
+   SCANME Authentication Engine v2.0
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,140 +9,147 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeBtn = document.getElementById("closeLoginModal");
 
     const loginForm = document.getElementById("loginForm");
+    const loginInput = document.getElementById("login");
+    const passwordInput = document.getElementById("password");
+
     const loginMessage = document.getElementById("loginMessage");
     const submitBtn = document.getElementById("loginSubmit");
 
-    /* -----------------------------------
-       Open Login Modal
-    ----------------------------------- */
+    if (!loginForm) return;
+
+    function showMessage(message, success = false) {
+
+        loginMessage.innerHTML =
+            `<span style="color:${success ? "green" : "red"}">${message}</span>`;
+
+    }
+
+    function openModal() {
+
+        loginModal.style.display = "flex";
+
+        loginMessage.innerHTML = "";
+
+        loginForm.reset();
+
+        setTimeout(() => loginInput.focus(), 100);
+
+    }
+
+    function closeModal() {
+
+        loginModal.style.display = "none";
+
+        loginMessage.innerHTML = "";
+
+        loginForm.reset();
+
+    }
 
     if (loginBtn) {
 
-        loginBtn.addEventListener("click", () => {
-
-            loginModal.style.display = "flex";
-
-        });
+        loginBtn.addEventListener("click", openModal);
 
     }
-
-    /* -----------------------------------
-       Close Button
-    ----------------------------------- */
 
     if (closeBtn) {
 
-        closeBtn.addEventListener("click", () => {
-
-            loginModal.style.display = "none";
-
-        });
+        closeBtn.addEventListener("click", closeModal);
 
     }
-
-    /* -----------------------------------
-       Click Outside
-    ----------------------------------- */
 
     window.addEventListener("click", (e) => {
 
         if (e.target === loginModal) {
 
-            loginModal.style.display = "none";
+            closeModal();
 
         }
 
     });
-
-    /* -----------------------------------
-       ESC Close
-    ----------------------------------- */
 
     document.addEventListener("keydown", (e) => {
 
         if (e.key === "Escape") {
 
-            loginModal.style.display = "none";
+            closeModal();
 
         }
 
     });
 
-    /* -----------------------------------
-       Login
-    ----------------------------------- */
+    loginForm.addEventListener("submit", async (e) => {
 
-    if (loginForm) {
+        e.preventDefault();
 
-        loginForm.addEventListener("submit", async (e) => {
+        loginMessage.innerHTML = "";
 
-            e.preventDefault();
+        const login = loginInput.value.trim();
+        const password = passwordInput.value;
 
-            loginMessage.innerHTML = "";
+        if (!login || !password) {
 
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = "Please wait...";
+            showMessage("Please enter Mobile/Email and Password.");
 
-            try {
+            return;
 
-                const response = await fetch("api/auth/login.php", {
+        }
 
-                    method: "POST",
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Please wait...";
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+        try {
 
-                    body: JSON.stringify({
+            const response = await fetch("api/auth/login.php", {
 
-                        login: document.getElementById("login").value.trim(),
+                method: "POST",
 
-                        password: document.getElementById("password").value
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-                    })
+                body: JSON.stringify({
+                    login,
+                    password
+                })
 
-                });
+            });
 
-                const result = await response.json();
+            if (!response.ok) {
 
-                if (result.success) {
-
-                    loginMessage.innerHTML =
-                        "<span style='color:green'>Login Successful...</span>";
-
-                    setTimeout(() => {
-
-                        window.location.href = result.redirect;
-
-                    }, 500);
-
-                                } else {
-
-                    loginMessage.innerHTML =
-                        "<span style='color:red'>" +
-                        result.message +
-                        "</span>";
-
-                }
-
-            } catch (error) {
-
-                console.error("LOGIN ERROR:", error);
-
-                alert(error.message);
-
-                loginMessage.innerHTML =
-                    "<span style='color:red'>" +
-                    error.message +
-                    "</span>";
+                throw new Error("Server error.");
 
             }
 
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = "Login";
+            const result = await response.json();
 
-        });
+            if (result.success) {
 
-    }
+                showMessage(result.message, true);
+
+                setTimeout(() => {
+
+                    window.location.href = result.redirect;
+
+                }, 500);
+
+            } else {
+
+                showMessage(result.message);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage("Unable to connect to server.");
+
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Login";
+
+    });
 
 });
