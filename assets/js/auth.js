@@ -1,5 +1,6 @@
 /* =====================================================
-   SCANME Authentication Engine v2.0
+   SCANME Authentication Engine v2.1
+   CSRF Protected Login
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,7 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginMessage = document.getElementById("loginMessage");
     const submitBtn = document.getElementById("loginSubmit");
 
+
     if (!loginForm) return;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CSRF Token
+    |--------------------------------------------------------------------------
+    */
+
+    const csrfToken = window.CSRF_TOKEN || "";
+
 
     function showMessage(message, success = false) {
 
@@ -23,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `<span style="color:${success ? "green" : "red"}">${message}</span>`;
 
     }
+
 
     function openModal() {
 
@@ -36,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     function closeModal() {
 
         loginModal.style.display = "none";
@@ -46,17 +60,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     if (loginBtn) {
 
         loginBtn.addEventListener("click", openModal);
 
     }
 
+
     if (closeBtn) {
 
         closeBtn.addEventListener("click", closeModal);
 
     }
+
 
     window.addEventListener("click", (e) => {
 
@@ -68,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+
     document.addEventListener("keydown", (e) => {
 
         if (e.key === "Escape") {
@@ -78,14 +96,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+
+
     loginForm.addEventListener("submit", async (e) => {
 
         e.preventDefault();
 
+
         loginMessage.innerHTML = "";
+
 
         const login = loginInput.value.trim();
         const password = passwordInput.value;
+
 
         if (!login || !password) {
 
@@ -95,25 +118,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
+        if (!csrfToken) {
+
+            showMessage("Security token missing. Refresh page and try again.");
+
+            return;
+
+        }
+
+
         submitBtn.disabled = true;
         submitBtn.textContent = "Please wait...";
 
+
         try {
+
 
             const response = await fetch("api/auth/login.php", {
 
                 method: "POST",
 
                 headers: {
-                    "Content-Type": "application/json"
+
+                    "Content-Type": "application/json",
+
+                    "X-CSRF-TOKEN": csrfToken
+
                 },
 
+
+                credentials: "same-origin",
+
+
                 body: JSON.stringify({
+
                     login,
+
                     password
+
                 })
 
             });
+
+
 
             if (!response.ok) {
 
@@ -121,35 +169,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
+
+
             const result = await response.json();
+
+
 
             if (result.success) {
 
+
                 showMessage(result.message, true);
+
+
 
                 setTimeout(() => {
 
+
                     window.location.href = result.redirect;
+
+
 
                 }, 500);
 
+
+
             } else {
+
 
                 showMessage(result.message);
 
+
+
             }
+
+
 
         } catch (error) {
 
-            console.error(error);
+
+            console.error("Login Error:", error);
+
 
             showMessage("Unable to connect to server.");
 
         }
 
+
+
         submitBtn.disabled = false;
+
         submitBtn.textContent = "Login";
 
+
     });
+
 
 });
