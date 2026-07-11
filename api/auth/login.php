@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         'success' => false,
         'message' => 'Method not allowed.'
     ]);
+
     exit;
 }
 
@@ -21,11 +22,11 @@ try {
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (!is_array($data)) {
-        throw new Exception('Invalid request.');
+        throw new Exception('Invalid request payload.');
     }
 
-    $login = trim($data['login'] ?? '');
-    $password = $data['password'] ?? '';
+    $login = trim((string)($data['login'] ?? ''));
+    $password = (string)($data['password'] ?? '');
 
     if ($login === '' || $password === '') {
 
@@ -39,19 +40,16 @@ try {
         exit;
     }
 
-    $stmt = $pdo->prepare("
-        SELECT *
-        FROM users
-        WHERE mobile = :login
-           OR email = :login
-        LIMIT 1
-    ");
-
-    $stmt->execute([
-        ':login' => $login
-    ]);
-
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = db_fetch(
+        "SELECT *
+         FROM users
+         WHERE mobile = :login
+            OR email = :login
+         LIMIT 1",
+        [
+            ':login' => $login
+        ]
+    );
 
     if (!$user || !password_verify($password, $user['password_hash'])) {
 
@@ -86,24 +84,26 @@ try {
         'status'   => $user['status']
     ]);
 
-    $stmt = $pdo->prepare("
-        UPDATE users
-        SET
-            last_login = NOW()
-        WHERE id = ?
-    ");
-
-    $stmt->execute([
-        $user['id']
-    ]);
+    db_execute(
+        "UPDATE users
+            SET last_login = NOW()
+          WHERE id = :id",
+        [
+            ':id' => $user['id']
+        ]
+    );
 
     echo json_encode([
-        'success' => true,
-        'message' => 'Login successful.',
+        'success'  => true,
+        'message'  => 'Login successful.',
         'redirect' => APP_URL . '/dashboard/'
     ]);
 
 } catch (Throwable $e) {
+
+    if (function_exists('log_error')) {
+        log_error('Login Error: ' . $e->getMessage());
+    }
 
     http_response_code(500);
 
