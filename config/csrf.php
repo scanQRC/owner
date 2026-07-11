@@ -13,9 +13,12 @@ require_once __DIR__ . '/session.php';
 const CSRF_TOKEN_NAME = '_csrf_token';
 const CSRF_TOKEN_TTL  = 7200;
 
-/**
- * Generate CSRF Token
- */
+/*
+|--------------------------------------------------------------------------
+| Generate Token
+|--------------------------------------------------------------------------
+*/
+
 function csrf_token(): string
 {
     if (
@@ -25,15 +28,19 @@ function csrf_token(): string
     ) {
 
         $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
+
         $_SESSION['_csrf_created'] = time();
     }
 
     return $_SESSION[CSRF_TOKEN_NAME];
 }
 
-/**
- * Hidden Input Field
- */
+/*
+|--------------------------------------------------------------------------
+| Hidden Input
+|--------------------------------------------------------------------------
+*/
+
 function csrf_field(): string
 {
     return sprintf(
@@ -42,9 +49,12 @@ function csrf_field(): string
     );
 }
 
-/**
- * Verify CSRF Token
- */
+/*
+|--------------------------------------------------------------------------
+| Verify Token
+|--------------------------------------------------------------------------
+*/
+
 function csrf_verify(?string $token): bool
 {
     if (
@@ -56,34 +66,70 @@ function csrf_verify(?string $token): bool
 
     return hash_equals(
         $_SESSION[CSRF_TOKEN_NAME],
-        $token
+        (string) $token
     );
 }
 
-/**
- * Verify POST Request
- */
+/*
+|--------------------------------------------------------------------------
+| Get Request Token
+|--------------------------------------------------------------------------
+*/
+
+function csrf_request_token(): ?string
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        return null;
+    }
+
+    $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+
+    if (str_contains($contentType, 'application/json')) {
+
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        return $data['_token'] ?? null;
+    }
+
+    return $_POST['_token'] ?? null;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Validate Request
+|--------------------------------------------------------------------------
+*/
+
 function csrf_validate_request(): void
 {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         return;
     }
 
-    $token = $_POST['_token'] ?? '';
-
-    if (!csrf_verify($token)) {
+    if (!csrf_verify(csrf_request_token())) {
 
         http_response_code(419);
 
-        exit('Invalid CSRF Token.');
+        header('Content-Type: application/json');
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'Invalid CSRF token.'
+        ]);
+
+        exit;
     }
 }
 
-/**
- * Regenerate Token
- */
+/*
+|--------------------------------------------------------------------------
+| Regenerate Token
+|--------------------------------------------------------------------------
+*/
+
 function csrf_regenerate(): void
 {
     $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
+
     $_SESSION['_csrf_created'] = time();
 }
