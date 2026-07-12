@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/session.php';
-
 /*
 |--------------------------------------------------------------------------
-| CSRF Protection
+| SCANME CSRF Protection
 |--------------------------------------------------------------------------
 */
 
@@ -26,8 +24,10 @@ function csrf_token(): string
         !isset($_SESSION['_csrf_created']) ||
         (time() - (int) $_SESSION['_csrf_created']) >= CSRF_TOKEN_TTL
     ) {
+
         $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
         $_SESSION['_csrf_created'] = time();
+
     }
 
     return $_SESSION[CSRF_TOKEN_NAME];
@@ -35,7 +35,7 @@ function csrf_token(): string
 
 /*
 |--------------------------------------------------------------------------
-| CSRF Hidden Input
+| Hidden Field
 |--------------------------------------------------------------------------
 */
 
@@ -56,62 +56,48 @@ function csrf_field(): string
 function csrf_verify(?string $token): bool
 {
     if (
-        !isset($_SESSION[CSRF_TOKEN_NAME]) ||
-        empty($token)
+        empty($token) ||
+        !isset($_SESSION[CSRF_TOKEN_NAME])
     ) {
         return false;
     }
 
     return hash_equals(
         $_SESSION[CSRF_TOKEN_NAME],
-        (string)$token
+        $token
     );
 }
 
 /*
 |--------------------------------------------------------------------------
-| Get Request Token
+| Current Request Token
 |--------------------------------------------------------------------------
 */
 
 function csrf_request_token(): ?string
 {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        return null;
+    $header = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+
+    if ($header !== '') {
+        return $header;
+    }
+
+    if (!empty($_POST['_token'])) {
+        return $_POST['_token'];
     }
 
     $contentType = strtolower($_SERVER['CONTENT_TYPE'] ?? '');
 
-    /*
-    |--------------------------------------------------------------------------
-    | JSON Request
-    |--------------------------------------------------------------------------
-    */
-
     if (str_contains($contentType, 'application/json')) {
 
-        $raw = file_get_contents('php://input');
+        $json = json_decode(file_get_contents('php://input'), true);
 
-        if ($raw === false || trim($raw) === '') {
-            return null;
+        if (is_array($json)) {
+            return $json['_token'] ?? null;
         }
-
-        $data = json_decode($raw, true);
-
-        if (!is_array($data)) {
-            return null;
-        }
-
-        return $data['_token'] ?? null;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Form Request
-    |--------------------------------------------------------------------------
-    */
-
-    return $_POST['_token'] ?? null;
+    return null;
 }
 
 /*
@@ -134,7 +120,7 @@ function csrf_validate_request(): void
 
         echo json_encode([
             'success' => false,
-            'message' => 'Invalid CSRF token.'
+            'message' => 'Invalid CSRF Token.'
         ]);
 
         exit;
@@ -151,17 +137,4 @@ function csrf_regenerate(): void
 {
     $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
     $_SESSION['_csrf_created'] = time();
-}
-
-/*
-|--------------------------------------------------------------------------
-| CSRF Header Helper
-|--------------------------------------------------------------------------
-*/
-
-function csrf_header(): array
-{
-    return [
-        'X-CSRF-TOKEN' => csrf_token()
-    ];
 }

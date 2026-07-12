@@ -1,5 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/session.php';
+require_once __DIR__ . '/functions.php';
+
+/*
 |--------------------------------------------------------------------------
-| Authentication Constants
+| SCANME Authentication
 |--------------------------------------------------------------------------
 */
 
@@ -7,7 +15,7 @@ const ADMIN_SESSION_KEY = 'admin';
 
 /*
 |--------------------------------------------------------------------------
-| Authentication
+| Login
 |--------------------------------------------------------------------------
 */
 
@@ -16,16 +24,25 @@ function admin_login(array $admin): void
     session_regenerate_id(true);
 
     $_SESSION[ADMIN_SESSION_KEY] = [
-        'id'         => (int) $admin['id'],
-        'name'       => $admin['name'],
-        'username'   => $admin['username'],
-        'email'      => $admin['email'],
-        'role'       => $admin['role'],
-        'status'     => $admin['status'],
-        'login_time' => time(),
+
+        'id'            => (int) $admin['id'],
+        'name'          => (string) ($admin['name'] ?? ''),
+        'username'      => (string) ($admin['username'] ?? ''),
+        'email'         => (string) ($admin['email'] ?? ''),
+        'role'          => (string) ($admin['role'] ?? 'USER'),
+        'status'        => (string) ($admin['status'] ?? 'ACTIVE'),
+
+        'login_time'    => time(),
         'last_activity' => time(),
+
     ];
 }
+
+/*
+|--------------------------------------------------------------------------
+| Logout
+|--------------------------------------------------------------------------
+*/
 
 function admin_logout(): void
 {
@@ -34,10 +51,22 @@ function admin_logout(): void
     session_destroy_all();
 }
 
+/*
+|--------------------------------------------------------------------------
+| Current Admin
+|--------------------------------------------------------------------------
+*/
+
 function admin(): ?array
 {
     return $_SESSION[ADMIN_SESSION_KEY] ?? null;
 }
+
+/*
+|--------------------------------------------------------------------------
+| Logged In ?
+|--------------------------------------------------------------------------
+*/
 
 function admin_logged_in(): bool
 {
@@ -45,27 +74,36 @@ function admin_logged_in(): bool
         return false;
     }
 
-    // Session Timeout (2 Hours)
-    $timeout = 60 * 60 * 2;
-
     if (
         isset($_SESSION[ADMIN_SESSION_KEY]['last_activity']) &&
-        (time() - $_SESSION[ADMIN_SESSION_KEY]['last_activity']) > $timeout
+        (
+            time() -
+            (int) $_SESSION[ADMIN_SESSION_KEY]['last_activity']
+        ) > SESSION_TIMEOUT
     ) {
+
         admin_logout();
+
         return false;
     }
 
-    // Update Last Activity
     $_SESSION[ADMIN_SESSION_KEY]['last_activity'] = time();
 
     return true;
 }
 
+/*
+|--------------------------------------------------------------------------
+| Current Admin ID
+|--------------------------------------------------------------------------
+*/
+
 function admin_id(): ?int
 {
     return $_SESSION[ADMIN_SESSION_KEY]['id'] ?? null;
 }
+
+/*
 |--------------------------------------------------------------------------
 | Route Protection
 |--------------------------------------------------------------------------
@@ -76,6 +114,8 @@ function require_admin(): void
     if (!admin_logged_in()) {
 
         redirect(APP_URL . '/admin/login.php');
+
+        exit;
     }
 }
 
@@ -90,12 +130,14 @@ function require_guest(): void
     if (admin_logged_in()) {
 
         redirect(APP_URL . '/dashboard/');
+
+        exit;
     }
 }
 
 /*
 |--------------------------------------------------------------------------
-| Permission Check
+| Role Check
 |--------------------------------------------------------------------------
 */
 
@@ -105,16 +147,18 @@ function admin_has_role(string $role): bool
         return false;
     }
 
-    return ($_SESSION[ADMIN_SESSION_KEY]['role'] ?? '') === $role;
+    return strtoupper(
+        $_SESSION[ADMIN_SESSION_KEY]['role'] ?? ''
+    ) === strtoupper($role);
 }
 
 /*
 |--------------------------------------------------------------------------
-| Current Admin
+| Current Admin Field
 |--------------------------------------------------------------------------
 */
 
-function current_admin(string $field = null): mixed
+function current_admin(?string $field = null): mixed
 {
     if (!admin_logged_in()) {
         return null;

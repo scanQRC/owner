@@ -1,7 +1,7 @@
 /* =====================================================
    SCANME Authentication Engine v2.2
    CSRF Protected Login
-   Auto Token Fetch
+   Debug Response Enabled
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
 
             const response = await fetch(
-                "api/auth/csrf-token.php",
+                "/api/auth/csrf-token.php",
                 {
                     method: "GET",
                     credentials: "same-origin"
@@ -215,46 +215,69 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
             const response = await fetch(
-                "api/auth/login.php",
+                "/api/auth/login.php",
                 {
 
-                method: "POST",
+                    method: "POST",
 
-                headers: {
+                    headers: {
 
-                    "Content-Type": "application/json",
+                        "Content-Type": "application/json",
 
-                    "X-CSRF-TOKEN": csrfToken
+                        "X-CSRF-TOKEN": csrfToken
 
-                },
-
-
-                credentials: "same-origin",
+                    },
 
 
-                body: JSON.stringify({
-
-                    login,
-
-                    password
-
-                })
-
-            });
+                    credentials: "same-origin",
 
 
+                    body: JSON.stringify({
 
-            if (!response.ok) {
+                        login: login,
 
-                throw new Error(
-                    "Server error."
+                        password: password
+
+                    })
+
+                }
+            );
+
+
+
+            const text = await response.text();
+
+
+            console.log(
+                "LOGIN RAW RESPONSE:",
+                text
+            );
+
+
+
+            let result;
+
+
+            try {
+
+                result = JSON.parse(text);
+
+            } catch (jsonError) {
+
+                console.error(
+                    "JSON Parse Error:",
+                    jsonError
                 );
 
+
+                showMessage(
+                    "Server returned invalid response."
+                );
+
+
+                return;
+
             }
-
-
-
-            const result = await response.json();
 
 
 
@@ -270,8 +293,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 setTimeout(
                     () => {
 
-                    window.location.href =
-                        result.redirect;
+                        window.location.href =
+                            result.redirect;
 
                     },
                     500
@@ -293,18 +316,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         } catch (error) {
 
 
-            console.error(
-                "Login Error:",
-                error
-            );
+    console.error(
+        "LOGIN FULL ERROR:",
+        error
+    );
 
 
-            showMessage(
-                "Unable to connect to server."
-            );
+    showMessage(
+        error.message
+    );
 
 
-        }
+}
 
 
 

@@ -2,11 +2,35 @@
 
 declare(strict_types=1);
 
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+error_reporting(E_ALL);
+
 header('Content-Type: application/json');
 
-require_once '../../config/bootstrap.php';
+require_once __DIR__ . '/../../config/bootstrap.php';
+
+
+/*
+|--------------------------------------------------------------------------
+| CSRF Protection
+|--------------------------------------------------------------------------
+*/
+
+$csrfToken = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+
+csrf_verify($csrfToken);
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Request Method Check
+|--------------------------------------------------------------------------
+*/
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
     http_response_code(405);
 
     echo json_encode([
@@ -17,16 +41,43 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+
+
 try {
 
-    $data = json_decode(file_get_contents('php://input'), true);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Read JSON Input
+    |--------------------------------------------------------------------------
+    */
+
+    $data = json_decode(
+        file_get_contents('php://input'),
+        true
+    );
+
 
     if (!is_array($data)) {
-        throw new Exception('Invalid request payload.');
+
+        throw new Exception(
+            'Invalid request payload.'
+        );
+
     }
 
-    $login = trim((string)($data['login'] ?? ''));
-    $password = (string)($data['password'] ?? '');
+
+
+    $login = trim(
+        (string)($data['login'] ?? '')
+    );
+
+
+    $password = (string)(
+        $data['password'] ?? ''
+    );
+
+
 
     if ($login === '' || $password === '') {
 
@@ -38,20 +89,59 @@ try {
         ]);
 
         exit;
+
     }
 
-    $user = db_fetch(
-        "SELECT *
-         FROM users
-         WHERE mobile = :login
-            OR email = :login
-         LIMIT 1",
-        [
-            ':login' => $login
-        ]
-    );
 
-    if (!$user || !password_verify($password, $user['password_hash'])) {
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Find User
+    |--------------------------------------------------------------------------
+    */
+
+    $user = db_fetch(
+    "SELECT *
+     FROM users
+     WHERE mobile = :mobile
+        OR email = :email
+     LIMIT 1",
+    [
+        ':mobile' => $login,
+        ':email'  => $login
+    ]
+);
+
+   
+    if (!$user) {
+
+        http_response_code(401);
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'User not found.'
+        ]);
+
+        exit;
+
+    }
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password Verify
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !password_verify(
+            $password,
+            $user['password_hash']
+        )
+    ) {
 
         http_response_code(401);
 
@@ -61,43 +151,78 @@ try {
         ]);
 
         exit;
+
     }
 
-    if (($user['status'] ?? '') !== 'active') {
 
-        http_response_code(403);
 
-        echo json_encode([
-            'success' => false,
-            'message' => 'Account is inactive.'
-        ]);
 
-        exit;
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Account Status
+    |--------------------------------------------------------------------------
+    */
+
+   if (($user['account_status'] ?? '') !== 'ACTIVE') {
+
+    http_response_code(403);
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Account is inactive.'
+    ]);
+
+    exit;
+
+}
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create Login Session
+    |--------------------------------------------------------------------------
+    */
 
     admin_login([
         'id'       => (int)$user['id'],
-        'name'     => $user['full_name'],
-        'username' => $user['mobile'],
-        'email'    => $user['email'],
+        'name'     => $user['full_name'] ?? '',
+        'username' => $user['mobile'] ?? '',
+        'email'    => $user['email'] ?? '',
         'role'     => $user['role'] ?? 'user',
-        'status'   => $user['status']
+        'status'   => $user['account_status'] ?? 'ACTIVE'
     ]);
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Last Login
+    |--------------------------------------------------------------------------
+    */
 
     db_execute(
         "UPDATE users
-            SET last_login = NOW()
-          WHERE id = :id",
+         SET last_login = NOW()
+         WHERE id = :id",
         [
             ':id' => $user['id']
         ]
     );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Success Response
+    |--------------------------------------------------------------------------
+    */
 
     echo json_encode([
         'success'  => true,
         'message'  => 'Login successful.',
         'redirect' => APP_URL . '/dashboard/'
     ]);
+
+    exit;
 
 } catch (Throwable $e) {
 
@@ -109,8 +234,8 @@ try {
 
     echo json_encode([
         'success' => false,
-        'message' => APP_DEBUG
-            ? $e->getMessage()
-            : 'Something went wrong.'
+        'message' => 'Something went wrong. Please try again.'
     ]);
+
+    exit;
 }
